@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase/server";
-import { embedText } from "@/lib/ai";
+import { embedText, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { chunkText } from "@/lib/chunking";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 
@@ -66,7 +66,7 @@ export async function POST(req: Request) {
   } catch (err: unknown) {
     console.error("Error in POST /api/documents:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to save document" },
+      { error: AI_ERROR_FRIENDLY_MESSAGE },
       { status: 500 }
     );
   }

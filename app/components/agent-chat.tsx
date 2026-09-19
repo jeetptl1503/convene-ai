@@ -92,14 +92,22 @@ export default function AgentChat() {
       }
     } catch (err: unknown) {
       console.error("Agent error:", err);
+      const rawMsg = err instanceof Error ? err.message : "The AI is busy, please try again in a moment";
+      const isRawJsonOrTechnical =
+        rawMsg.startsWith("{") ||
+        rawMsg.includes("GoogleGenAI") ||
+        rawMsg.includes("fetch failed") ||
+        rawMsg.includes("Unexpected token");
+      const userFriendlyMessage = isRawJsonOrTechnical
+        ? "The AI is busy, please try again in a moment."
+        : rawMsg;
+
       setMessages((prev) => [
         ...prev,
         {
           id: `err-${Date.now()}`,
           role: "assistant",
-          content: `⚠️ Sorry, I encountered an error: ${
-            err instanceof Error ? err.message : "Unknown error"
-          }`,
+          content: `⚠️ ${userFriendlyMessage}`,
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         },
       ]);

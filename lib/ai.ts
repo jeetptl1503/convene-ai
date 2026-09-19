@@ -1,10 +1,27 @@
 import { GoogleGenAI, type GenerateContentResponse } from "@google/genai";
 
+/**
+ * Shared Gemini AI helper.
+ *
+ * – Retries on 429 / 503 (transient errors & rate-limits) with exponential back-off: 1 s → 2 s → 4 s → 8 s.
+ * – Two model tiers:
+ *     "flash"      → gemini-3.6-flash       (agent / extraction)
+ *     "flash-lite" → gemini-3.5-flash-lite  (simple steps)
+ */
+
 const MODELS = {
-  flash: "gemini-2.5-flash",
-  "flash-lite": "gemini-2.5-flash-lite",
-  embedding: "text-embedding-004",
+  flash: "gemini-3.6-flash",
+  "flash-lite": "gemini-3.5-flash-lite",
+  embedding: "gemini-embedding-001",
 } as const;
+
+const MODEL_FALLBACKS: Record<string, string[]> = {
+  "gemini-3.6-flash": ["gemini-3.5-flash", "gemini-flash-latest"],
+  "gemini-3.5-flash-lite": ["gemini-3.1-flash-lite", "gemini-flash-lite-latest"],
+  "gemini-embedding-001": ["gemini-embedding-2", "gemini-embedding-2-preview"],
+};
+
+export const AI_ERROR_FRIENDLY_MESSAGE = "The AI is busy, please try again in a moment";
 
 type ModelTier = "flash" | "flash-lite";
 
@@ -126,24 +143,31 @@ function getMockJSONResponse<T>(prompt: string): T {
 
   if (p.includes("plan") || p.includes("milestone") || p.includes("backward")) {
     return {
-      milestones: [
+      event_name: "Planned Event",
+      tasks: [
         {
           title: "Budget & Sponsorship Lock",
-          deadline: "2026-09-20T17:00:00.000Z",
-          owner_name: "Ananya Desai",
+          description: "Finalize event sponsors and locked budget",
+          owner_role: "Finance Lead",
+          deadline_offset_days: 20,
           priority: "critical",
+          depends_on_index: null,
         },
         {
           title: "Venue & Equipment Clearance",
-          deadline: "2026-09-28T17:00:00.000Z",
-          owner_name: "Karan Singh",
+          description: "Reserve auditorium and request audio/visual equipment",
+          owner_role: "Operations Lead",
+          deadline_offset_days: 14,
           priority: "high",
+          depends_on_index: 0,
         },
         {
           title: "Stage & AV Rehearsal",
-          deadline: "2026-10-08T17:00:00.000Z",
-          owner_name: "Ravi Patel",
+          description: "Full dry-run with stage crew and lighting setup",
+          owner_role: "Logistics Lead",
+          deadline_offset_days: 3,
           priority: "high",
+          depends_on_index: 1,
         },
       ],
     } as unknown as T;
@@ -152,8 +176,52 @@ function getMockJSONResponse<T>(prompt: string): T {
   return {} as T;
 }
 
+async function tryGenerateWithModel(
+  client: GoogleGenAI,
+  modelId: string,
+  prompt: string,
+  systemInstruction?: string
+): Promise<string> {
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      const response: GenerateContentResponse =
+        await client.models.generateContent({
+          model: modelId,
+          contents: prompt,
+          config: systemInstruction
+            ? { systemInstruction }
+            : undefined,
+        });
+
+      return response.text ?? "";
+    } catch (err: unknown) {
+      const status =
+        err instanceof Error && "status" in err
+          ? (err as { status: number }).status
+          : undefined;
+
+      const isTransient =
+        status === 429 ||
+        status === 503 ||
+        (err instanceof Error &&
+          (err.message.includes("503") ||
+            err.message.includes("UNAVAILABLE") ||
+            err.message.includes("high demand") ||
+            err.message.includes("Resource has been exhausted")));
+
+      if (isTransient && attempt < MAX_RETRIES) {
+        await sleep(BACKOFF_MS[attempt]);
+        continue;
+      }
+      throw err;
+    }
+  }
+
+  throw new Error(`Failed to generate content with ${modelId}`);
+}
+
 /**
- * Generate content with automatic 429 retry and fallback for trial mode.
+ * Generate content with automatic 429/503 retry and model fallback.
  */
 export async function generate(opts: {
   tier: ModelTier;
@@ -165,33 +233,21 @@ export async function generate(opts: {
     return getMockTextResponse(opts.prompt);
   }
 
-  const modelId = MODELS[opts.tier];
+  const primaryModel = MODELS[opts.tier];
+  const candidates = [primaryModel, ...(MODEL_FALLBACKS[primaryModel] || [])];
+
   let lastError: unknown;
-
-  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+  for (const modelId of candidates) {
     try {
-      const response: GenerateContentResponse =
-        await client.models.generateContent({
-          model: modelId,
-          contents: opts.prompt,
-          config: opts.systemInstruction
-            ? { systemInstruction: opts.systemInstruction }
-            : undefined,
-        });
-
-      return response.text ?? "";
+      return await tryGenerateWithModel(
+        client,
+        modelId,
+        opts.prompt,
+        opts.systemInstruction
+      );
     } catch (err: unknown) {
       lastError = err;
-      const status =
-        err instanceof Error && "status" in err
-          ? (err as { status: number }).status
-          : undefined;
-
-      if (status === 429 && attempt < MAX_RETRIES) {
-        await sleep(BACKOFF_MS[attempt]);
-        continue;
-      }
-      break;
+      console.warn(`Model ${modelId} failed, trying fallback if available:`, err);
     }
   }
 
@@ -226,19 +282,15 @@ export async function generateJSON<T = unknown>(opts: {
   }
 }
 
-/**
- * Generate 768-dimensional embeddings using Gemini with retry and fallback.
- */
-export async function embedText(text: string): Promise<number[]> {
-  const client = getClient();
-  if (!client) {
-    return Array(768).fill(0).map((_, i) => Math.sin(i * 0.1));
-  }
-
+async function tryEmbedWithModel(
+  client: GoogleGenAI,
+  modelId: string,
+  text: string
+): Promise<number[]> {
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       const response = await client.models.embedContent({
-        model: MODELS.embedding,
+        model: modelId,
         contents: text,
         config: { outputDimensionality: 768 },
       });
@@ -250,15 +302,50 @@ export async function embedText(text: string): Promise<number[]> {
           ? (err as { status: number }).status
           : undefined;
 
-      if (status === 429 && attempt < MAX_RETRIES) {
+      const isTransient =
+        status === 429 ||
+        status === 503 ||
+        (err instanceof Error &&
+          (err.message.includes("503") ||
+            err.message.includes("UNAVAILABLE") ||
+            err.message.includes("high demand") ||
+            err.message.includes("Resource has been exhausted")));
+
+      if (isTransient && attempt < MAX_RETRIES) {
         await sleep(BACKOFF_MS[attempt]);
         continue;
       }
-      break;
+      throw err;
     }
   }
 
+  throw new Error(`Failed to embed content with ${modelId}`);
+}
+
+/**
+ * Generate 768-dimensional embeddings using Gemini with retry and fallback.
+ */
+export async function embedText(text: string): Promise<number[]> {
+  const client = getClient();
+  if (!client) {
+    return Array(768).fill(0).map((_, i) => Math.sin(i * 0.1));
+  }
+
+  const primaryModel = MODELS.embedding;
+  const candidates = [primaryModel, ...(MODEL_FALLBACKS[primaryModel] || [])];
+
+  let lastError: unknown;
+  for (const modelId of candidates) {
+    try {
+      return await tryEmbedWithModel(client, modelId, text);
+    } catch (err: unknown) {
+      lastError = err;
+      console.warn(`Embedding model ${modelId} failed, trying fallback if available:`, err);
+    }
+  }
+
+  console.warn("Gemini Embedding error, using fallback vector:", lastError);
   return Array(768).fill(0).map((_, i) => Math.sin(i * 0.1));
 }
 
-export { getClient, MODELS };
+export { getClient, MODELS, MODEL_FALLBACKS };

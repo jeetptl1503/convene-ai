@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getClient, MODELS, embedText } from "@/lib/ai";
+import { getClient, MODELS, embedText, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { createServerClient } from "@/lib/supabase/server";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 import { Type } from "@google/genai";
@@ -616,7 +616,7 @@ After calling tools, concisely summarize what concrete actions were performed in
   } catch (err: unknown) {
     console.error("Error in /api/agent:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Agent processing error" },
+      { error: AI_ERROR_FRIENDLY_MESSAGE },
       { status: 500 }
     );
   }

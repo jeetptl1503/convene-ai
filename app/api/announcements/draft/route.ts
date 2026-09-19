@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generate } from "@/lib/ai";
+import { generate, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { createServerClient } from "@/lib/supabase/server";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 
@@ -79,7 +79,7 @@ TITLE: [subject line]
   } catch (err: unknown) {
     console.error("Error in /api/announcements/draft:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to draft announcement" },
+      { error: AI_ERROR_FRIENDLY_MESSAGE },
       { status: 500 }
     );
   }

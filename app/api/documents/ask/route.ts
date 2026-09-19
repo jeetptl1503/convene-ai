@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@/lib/supabase/server";
-import { embedText, generate } from "@/lib/ai";
+import { embedText, generate, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 
 export async function POST(req: Request) {
@@ -91,7 +91,7 @@ Provide a clear, concise answer with citations in the format [Source N: "Documen
   } catch (err: unknown) {
     console.error("Error in POST /api/documents/ask:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to search documents" },
+      { error: AI_ERROR_FRIENDLY_MESSAGE },
       { status: 500 }
     );
   }

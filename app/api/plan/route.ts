@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateJSON } from "@/lib/ai";
+import { generateJSON, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 import { createServerClient } from "@/lib/supabase/server";
 
@@ -100,7 +100,7 @@ Return valid JSON:
   } catch (err: unknown) {
     console.error("Error in /api/plan:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to generate plan" },
+      { error: AI_ERROR_FRIENDLY_MESSAGE },
       { status: 500 }
     );
   }

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { generateJSON } from "@/lib/ai";
+import { generateJSON, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { createServerClient } from "@/lib/supabase/server";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 import type { Task, Member, Risk, RiskSeverity } from "@/types/database";
@@ -239,7 +239,7 @@ Return valid JSON adhering to:
   } catch (err: unknown) {
     console.error("Error in /api/risks/scan:", err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Failed to run risk scan" },
+      { error: AI_ERROR_FRIENDLY_MESSAGE },
       { status: 500 }
     );
   }
