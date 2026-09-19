@@ -21,7 +21,7 @@ const BACKOFF_MS = [1000, 2000, 4000, 8000];
 const MAX_RETRIES = BACKOFF_MS.length;
 
 function getClient() {
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = (process.env.GEMINI_API_KEY || "").trim();
   if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
   return new GoogleGenAI({ apiKey });
 }
