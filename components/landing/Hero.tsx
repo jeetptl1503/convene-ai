@@ -1,0 +1,186 @@
+"use client";
+
+import React from "react";
+import { Zap, CheckCircle2, Mic2, Bot, Calendar, Clock, Database, Check } from "lucide-react";
+import { GithubIcon } from "./GithubIcon";
+import { GoogleSignInButton } from "./GoogleSignInButton";
+
+export function Hero() {
+  const coreOfferings = [
+    "Tasks & Deadlines",
+    "Volunteer Roster",
+    "Meeting Transcripts",
+    "Risk Radar",
+    "Club Knowledge & RAG",
+    "AI Announcements",
+    "Smart Stage MC (PS-5)",
+    "Real Action Workflows",
+  ];
+
+  return (
+    <section className="relative z-10 overflow-hidden px-5 pb-16 pt-28 sm:px-8 lg:pt-36">
+      <div className="mx-auto max-w-[88rem]">
+        <div className="grid min-h-[600px] items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
+          {/* Left Column: Seamless Description & What We Offer */}
+          <div className="text-left">
+            {/* Simple Category Badge */}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50/90 px-3.5 py-1 text-xs font-semibold text-emerald-800 shadow-xs">
+              <span className="h-2 w-2 rounded-full bg-emerald-500" />
+              <span>Centralized AI Event Operations Platform</span>
+            </div>
+
+            {/* Main Punchy Headline */}
+            <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl lg:leading-[1.12]">
+              All your club activities &amp; live stage flow.{" "}
+              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text text-transparent">
+                Unified in one place.
+              </span>
+            </h1>
+
+            {/* Seamless, Direct Description */}
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
+              Convene AI brings your <strong>tasks, volunteers, meetings, deadlines, documents, risks, and stage schedule</strong> into
+              one centralized command center. An autonomous AI agent that takes <strong>real application actions</strong>—not just generates text.
+            </p>
+
+            {/* What We Offer - Direct Deliverables Checklist */}
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-medium text-slate-700">
+              {coreOfferings.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50/80 px-2.5 py-1.5 shadow-2xs"
+                >
+                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  <span className="truncate">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <GoogleSignInButton text="Sign in with Google" className="h-12 px-6 text-sm" />
+
+              <a
+                href="https://github.com/jeetptl1503/convene-ai"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 text-sm font-medium text-slate-700 shadow-xs transition-all hover:bg-slate-50 hover:text-slate-900 active:scale-95"
+              >
+                <GithubIcon className="h-4 w-4" />
+                <span>Explore GitHub Repository</span>
+                <span className="text-amber-500 font-bold">★</span>
+              </a>
+            </div>
+
+            {/* Simplicity & Value Guarantee */}
+            <p className="mt-5 flex items-center gap-2 text-xs font-medium text-slate-500">
+              <Zap className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Fast Google sign-in · Instant access to your club dashboard</span>
+            </p>
+          </div>
+
+          {/* Right Column: Clear Command Center Mockup */}
+          <div className="relative">
+            <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-emerald-100/50 to-teal-100/50 blur-xl opacity-70" />
+
+            <div className="relative rounded-2xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6">
+              {/* Window Bar */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-rose-400" />
+                  <span className="h-3 w-3 rounded-full bg-amber-400" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-400" />
+                  <span className="ml-2 font-mono text-xs font-semibold text-slate-700">Convene Live Operations</span>
+                </div>
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 border border-emerald-200">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  Live Event Active
+                </span>
+              </div>
+
+              {/* Event Summary Bar */}
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-slate-50 p-3 text-xs text-slate-600">
+                <div className="flex items-center gap-2 font-semibold text-slate-900">
+                  <Calendar className="h-4 w-4 text-emerald-600" />
+                  <span>TechFest 2026 · Main Auditorium</span>
+                </div>
+                <div className="flex items-center gap-3 font-medium text-slate-600 text-[11px]">
+                  <span>8 Volunteers Active</span>
+                  <span>·</span>
+                  <span className="text-emerald-700 font-semibold">Stage &amp; Backstage Synced</span>
+                </div>
+              </div>
+
+              {/* Split Preview: Stage Flow & ClubOps */}
+              <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                {/* Stage Flow (PS-5) */}
+                <div className="rounded-xl border border-purple-100 bg-purple-50/40 p-4">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-purple-900">
+                    <span className="flex items-center gap-1.5">
+                      <Mic2 className="h-3.5 w-3.5 text-purple-600" />
+                      Live Stage (PS-5)
+                    </span>
+                    <span className="rounded bg-purple-200/60 px-1.5 py-0.5 text-[10px] text-purple-800">MC Prompter</span>
+                  </div>
+
+                  <div className="mt-3 rounded-lg border border-purple-200/70 bg-white p-3 shadow-xs">
+                    <div className="flex items-center justify-between text-[11px] text-slate-500">
+                      <span className="font-semibold text-purple-700">Live on Stage</span>
+                      <span className="font-mono text-[10px] text-amber-600 font-bold">+4m Overrun</span>
+                    </div>
+                    <p className="mt-1 text-xs font-bold text-slate-900">Keynote: Dr. Ramesh Roy</p>
+                    <p className="mt-2 text-[11px] leading-relaxed text-slate-600 italic">
+                      &ldquo;Welcoming our next speaker, pioneer of distributed neural systems...&rdquo;
+                    </p>
+                  </div>
+
+                  <div className="mt-3 flex items-center justify-between text-[11px] text-purple-800">
+                    <span className="flex items-center gap-1 font-medium">
+                      <Clock className="h-3 w-3" /> Next: 11:30 AM
+                    </span>
+                    <span className="text-[10px] text-purple-700 font-semibold">Downstream schedule shifted</span>
+                  </div>
+                </div>
+
+                {/* ClubOps (PS-3) */}
+                <div className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-4">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-emerald-900">
+                    <span className="flex items-center gap-1.5">
+                      <Bot className="h-3.5 w-3.5 text-emerald-600" />
+                      ClubOps Agent (PS-3)
+                    </span>
+                    <span className="rounded bg-emerald-200/60 px-1.5 py-0.5 text-[10px] text-emerald-800">Auto Actions</span>
+                  </div>
+
+                  <div className="mt-3 rounded-lg border border-emerald-200/70 bg-white p-3 shadow-xs">
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="font-mono text-[10px] text-emerald-700 font-bold">TASK UPDATED</span>
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                    </div>
+                    <p className="mt-1 text-xs font-bold text-slate-900">Audi 2 Sound Check</p>
+                    <p className="mt-1 text-[11px] text-slate-600">
+                      Assigned to <strong className="text-slate-800">Karan Singh</strong> · Status: Doing
+                    </p>
+                  </div>
+
+                  <div className="mt-3 flex items-center justify-between text-[11px] text-emerald-800 font-medium">
+                    <span className="flex items-center gap-1">
+                      <Database className="h-3 w-3" /> Database Updated
+                    </span>
+                    <span className="text-[10px] text-emerald-700 font-semibold">No Bottlenecks</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Status Footer Line */}
+              <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-500">
+                <span>Direct Supabase &amp; Gemini actions (Not hypothetical chat)</span>
+                <span className="font-semibold text-emerald-700">All Systems Synced</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
