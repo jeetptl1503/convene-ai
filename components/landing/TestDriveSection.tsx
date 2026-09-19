@@ -8,7 +8,7 @@ export function TestDriveSection() {
 
   const scenarioResults = [
     {
-      title: "Messy Post-Meeting Voice Note (PS-3)",
+      title: "Messy WhatsApp Meeting Notes",
       summary: "6 actionable tasks parsed · Priya workload warning caught · Audi 2 booking prioritized",
       m1Label: "TASKS EXTRACTED",
       m1Val: "06",
@@ -19,10 +19,10 @@ export function TestDriveSection() {
       m3Label: "RISKS FLAGGED",
       m3Val: "02",
       m3Color: "text-amber-600 dark:text-amber-400",
-      details: "A 4-minute WhatsApp voice note was automatically converted into organized tasks with assignees and calendar deadlines.",
+      details: "A chaotic 25-message WhatsApp meeting log was automatically converted into organized tasks with assignees, priorities, and deadlines.",
     },
     {
-      title: "Urgent Sponsor Pitch Deck Deadline (PS-3)",
+      title: "Sponsor Pitch Deck & Workload Bottleneck",
       summary: "3 sponsor tasks assigned · Ananya workload protected · $2,500 prize pool secured",
       m1Label: "TASKS REASSIGNED",
       m1Val: "03",
@@ -33,21 +33,21 @@ export function TestDriveSection() {
       m3Label: "BOTTLENECKS REMOVED",
       m3Val: "01",
       m3Color: "text-emerald-700 dark:text-emerald-400",
-      details: "When sponsor follow-ups fell behind, the AI reassigned other routine chores so Ananya could focus on closing corporate sponsors.",
+      details: "When sponsor outreach fell behind, the AI reassigned other routine chores to available members so Ananya could focus on closing corporate sponsors.",
     },
     {
-      title: "Speaker Overrun on Live Stage (PS-5)",
-      summary: "Upcoming sessions shifted +15m · 4 crew channels alerted · Anchor given 90s filler script",
-      m1Label: "SESSIONS AUTO-ADJUSTED",
+      title: "Venue Permit Delay & Dependency Blocker",
+      summary: "Dean permit delay caught · 4 dependent stage & rehearsal tasks held · Admin follow-up drafted",
+      m1Label: "DEPENDENT TASKS HELD",
       m1Val: "04",
-      m1Color: "text-purple-700 dark:text-purple-400",
-      m2Label: "CREW TEAMS NOTIFIED",
+      m1Color: "text-rose-600 dark:text-rose-400",
+      m2Label: "DAYS OVERDUE",
       m2Val: "03",
-      m2Color: "text-purple-600 dark:text-purple-400",
-      m3Label: "MC SCRIPTS DISPATCHED",
+      m2Color: "text-amber-600 dark:text-amber-400",
+      m3Label: "MITIGATION ACTIONS",
       m3Val: "02",
       m3Color: "text-emerald-700 dark:text-emerald-400",
-      details: "When the keynote speaker talked 15 minutes too long, the AI shifted the schedule, alerted catering, and gave the MC a fun audience prompt.",
+      details: "When the Dean's security clearance for Audi 2 fell behind schedule, the AI flagged all downstream dependent tasks, prevented premature vendor rentals, and drafted an escalation letter.",
     },
   ];
 

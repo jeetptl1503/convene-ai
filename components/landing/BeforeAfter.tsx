@@ -7,7 +7,7 @@ export function BeforeAfter() {
   const comparisons = [
     {
       before: "Tasks and action items buried under 400+ unorganized WhatsApp messages",
-      after: "Voice notes and chats automatically converted into assigned Kanban cards",
+      after: "WhatsApp group chats and meeting notes automatically converted into assigned Kanban cards",
     },
     {
       before: "Volunteer confusion—nobody knows who is picking up the guest or checking AV",
@@ -18,12 +18,12 @@ export function BeforeAfter() {
       after: "24/7 AI Risk Radar scans dependencies and rebalances overloaded volunteers",
     },
     {
-      before: "Stage MC panic when keynote runs 20m over and projector disconnects",
-      after: "Dynamic schedule cascade shifts agenda + instant AI teleprompter filler script",
+      before: "Key team members overwhelmed with 10+ concurrent tasks while others remain idle",
+      after: "Real-time workload capacity radar with 1-click task rebalancing across active volunteers",
     },
     {
-      before: "AV tech, backstage crew, and anchors working off different printed paper schedules",
-      after: "Single synchronized real-time web console with instant push notifications",
+      before: "Lost past event guidelines, scattered budget spreadsheets, and missing approval letters",
+      after: "Centralized club knowledge base with pgvector semantic search and exact document citations",
     },
   ];
 
@@ -38,7 +38,7 @@ export function BeforeAfter() {
             Replace Campus Chaos with Autonomous Command
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600 sm:text-base dark:text-slate-400">
-            From pre-event preparation to live stage execution, see how Convene AI transforms the club experience.
+            From milestone planning to volunteer load balancing, see how Convene AI eliminates campus chaos.
           </p>
         </div>
 
@@ -47,7 +47,7 @@ export function BeforeAfter() {
           <div className="grid grid-cols-2 border-b border-slate-200 text-xs sm:text-sm font-bold dark:border-slate-800">
             <div className="bg-rose-50/70 p-5 text-rose-900 flex items-center gap-2 dark:bg-rose-950/40 dark:text-rose-300">
               <span className="h-2 w-2 rounded-full bg-rose-500" />
-              WhatsApp + Spreadsheets + Paper MC Notes
+              WhatsApp Floods + Broken Spreadsheets
             </div>
             <div className="border-l border-slate-200 bg-emerald-50/70 p-5 text-emerald-900 flex items-center gap-2 dark:border-slate-800 dark:bg-emerald-950/40 dark:text-emerald-300">
               <span className="h-2 w-2 rounded-full bg-emerald-600 dark:bg-emerald-400" />

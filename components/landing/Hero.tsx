@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Zap, CheckCircle2, Mic2, Bot, Calendar, Clock, Database, Check } from "lucide-react";
+import { Zap, CheckCircle2, Bot, Calendar, Clock, Database, Check } from "lucide-react";
 import { GithubIcon } from "./GithubIcon";
 import { SignInButton } from "./SignInButton";
 
@@ -13,8 +13,8 @@ export function Hero() {
     "Risk Radar",
     "Club Knowledge & RAG",
     "AI Announcements",
-    "Smart Stage MC (PS-5)",
-    "Real Action Workflows",
+    "Kanban & Dependencies",
+    "Autonomous DB Actions",
   ];
 
   return (
@@ -31,7 +31,7 @@ export function Hero() {
 
             {/* Main Punchy Headline */}
             <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl lg:leading-[1.12] dark:text-white">
-              All your club activities &amp; live stage flow.{" "}
+              All your club activities &amp; team operations.{" "}
               <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text text-transparent dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-500">
                 Unified in one place.
               </span>
@@ -39,8 +39,8 @@ export function Hero() {
 
             {/* Seamless, Direct Description */}
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg dark:text-slate-300">
-              Convene AI brings your <strong className="text-slate-900 dark:text-white">tasks, volunteers, meetings, deadlines, documents, risks, and stage schedule</strong> into
-              one centralized command center. An autonomous AI agent that takes <strong className="text-slate-900 dark:text-white">real application actions</strong>—not just generates text.
+              Convene AI brings your <strong className="text-slate-900 dark:text-white">tasks, volunteers, meetings, deadlines, documents, risks, and announcements</strong> into
+              one centralized command center. An autonomous AI agent that takes <strong className="text-slate-900 dark:text-white">real database actions</strong>—not just generates text.
             </p>
 
             {/* What We Offer - Direct Deliverables Checklist */}
@@ -107,47 +107,47 @@ export function Hero() {
                 <div className="flex items-center gap-3 font-medium text-slate-600 text-[11px] dark:text-slate-400">
                   <span>8 Volunteers Active</span>
                   <span>·</span>
-                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">Stage &amp; Backstage Synced</span>
+                  <span className="text-emerald-700 dark:text-emerald-400 font-semibold">16 Tasks Tracked</span>
                 </div>
               </div>
 
-              {/* Split Preview: Stage Flow & ClubOps */}
+              {/* Split Preview: Workload Radar & Autonomous Agent */}
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
-                {/* Stage Flow (PS-5) */}
-                <div className="rounded-xl border border-purple-100 bg-purple-50/40 p-4 dark:border-purple-900/50 dark:bg-purple-950/30">
-                  <div className="flex items-center justify-between text-[11px] font-bold text-purple-900 dark:text-purple-300">
+                {/* Volunteer Workload Radar */}
+                <div className="rounded-xl border border-teal-100 bg-teal-50/40 p-4 dark:border-teal-900/50 dark:bg-teal-950/30">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-teal-900 dark:text-teal-300">
                     <span className="flex items-center gap-1.5">
-                      <Mic2 className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" />
-                      Live Stage (PS-5)
+                      <Zap className="h-3.5 w-3.5 text-teal-600 dark:text-teal-400" />
+                      Workload Radar
                     </span>
-                    <span className="rounded bg-purple-200/60 px-1.5 py-0.5 text-[10px] text-purple-800 dark:bg-purple-900/60 dark:text-purple-300">MC Prompter</span>
+                    <span className="rounded bg-teal-200/60 px-1.5 py-0.5 text-[10px] text-teal-800 dark:bg-teal-900/60 dark:text-teal-300">Burnout Guard</span>
                   </div>
 
-                  <div className="mt-3 rounded-lg border border-purple-200/70 bg-white p-3 shadow-2xs dark:border-purple-900/60 dark:bg-slate-900">
+                  <div className="mt-3 rounded-lg border border-teal-200/70 bg-white p-3 shadow-2xs dark:border-teal-900/60 dark:bg-slate-900">
                     <div className="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
-                      <span className="font-semibold text-purple-700 dark:text-purple-400">Live on Stage</span>
-                      <span className="font-mono text-[10px] text-amber-600 dark:text-amber-400 font-bold">+4m Overrun</span>
+                      <span className="font-semibold text-teal-700 dark:text-teal-400">Priya Patel (Tech Lead)</span>
+                      <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">Rebalanced ✓</span>
                     </div>
-                    <p className="mt-1 text-xs font-bold text-slate-900 dark:text-white">Keynote: Dr. Ramesh Roy</p>
-                    <p className="mt-2 text-[11px] leading-relaxed text-slate-600 dark:text-slate-400 italic">
-                      &ldquo;Welcoming our next speaker, pioneer of distributed neural systems...&rdquo;
+                    <p className="mt-1 text-xs font-bold text-slate-900 dark:text-white">Wi-Fi &amp; AV Network Setup</p>
+                    <p className="mt-2 text-[11px] leading-relaxed text-slate-600 dark:text-slate-400">
+                      Transferred to <strong className="text-slate-800 dark:text-slate-200 font-semibold">Rohan Verma</strong> · Priya load normalized to 60%
                     </p>
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between text-[11px] text-purple-800 dark:text-purple-300">
+                  <div className="mt-3 flex items-center justify-between text-[11px] text-teal-800 dark:text-teal-300">
                     <span className="flex items-center gap-1 font-medium">
-                      <Clock className="h-3 w-3" /> Next: 11:30 AM
+                      <Clock className="h-3 w-3" /> Auto-Balanced
                     </span>
-                    <span className="text-[10px] text-purple-700 dark:text-purple-400 font-semibold">Downstream schedule shifted</span>
+                    <span className="text-[10px] text-teal-700 dark:text-teal-400 font-semibold">No Overloads</span>
                   </div>
                 </div>
 
-                {/* ClubOps (PS-3) */}
+                {/* ClubOps Agent */}
                 <div className="rounded-xl border border-emerald-100 bg-emerald-50/40 p-4 dark:border-emerald-900/50 dark:bg-emerald-950/30">
                   <div className="flex items-center justify-between text-[11px] font-bold text-emerald-900 dark:text-emerald-300">
                     <span className="flex items-center gap-1.5">
                       <Bot className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                      ClubOps Agent (PS-3)
+                      Autonomous Copilot
                     </span>
                     <span className="rounded bg-emerald-200/60 px-1.5 py-0.5 text-[10px] text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">Auto Actions</span>
                   </div>
@@ -167,7 +167,7 @@ export function Hero() {
                     <span className="flex items-center gap-1">
                       <Database className="h-3 w-3" /> Database Updated
                     </span>
-                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">No Bottlenecks</span>
+                    <span className="text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold">Real Supabase Sync</span>
                   </div>
                 </div>
               </div>

@@ -22,9 +22,9 @@ export function Navbar() {
           <a href="#features" className="transition-colors hover:text-slate-900 dark:hover:text-white">
             ClubOps AI
           </a>
-          <a href="#stage-flow" className="flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400 transition-colors hover:text-emerald-800 dark:hover:text-emerald-300">
+          <a href="#workload" className="flex items-center gap-1.5 font-semibold text-emerald-700 dark:text-emerald-400 transition-colors hover:text-emerald-800 dark:hover:text-emerald-300">
             <Sparkles className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-            Smart Anchor &amp; Stage
+            Workload &amp; Radar
           </a>
           <a href="#demo" className="transition-colors hover:text-slate-900 dark:hover:text-white">
             Live Showcase

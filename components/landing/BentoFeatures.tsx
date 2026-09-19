@@ -6,12 +6,12 @@ import {
   MessageSquareText,
   Users,
   Search,
-  WandSparkles,
   RefreshCw,
   Check,
-  Mic2,
-  Clock,
+  Layers,
+  Megaphone,
   ShieldCheck,
+  Lock,
 } from "lucide-react";
 
 export function BentoFeatures() {
@@ -28,13 +28,13 @@ export function BentoFeatures() {
             Everything Your Club Needs in One Place
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600 sm:text-base dark:text-slate-400">
-            Designed specifically for college clubs: solve chaotic pre-event prep and run your stage without panic.
+            Designed specifically for college clubs: solve chaotic pre-event prep and run your operations with zero blindspots.
           </p>
         </div>
 
         {/* Bento Grid */}
         <div className="mx-auto mt-14 grid max-w-6xl gap-5 md:grid-cols-3">
-          {/* Card 1: Autonomous Action Engine (PS-3) - Span 2 */}
+          {/* Card 1: Autonomous Action Engine (Real Tools) - Span 2 */}
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-slate-800 dark:bg-slate-900 md:col-span-2">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-400">
               <GitBranch className="h-5 w-5" />
@@ -45,18 +45,19 @@ export function BentoFeatures() {
             </p>
             <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4 font-mono text-xs">
               {[
+                "create_task()",
                 "assign_task()",
-                "update_status()",
-                "create_milestone()",
-                "scan_risks()",
-                "rebalance_load()",
-                "generate_script()",
-                "cascade_delay()",
-                "search_docs()",
+                "update_task_status()",
+                "set_deadline()",
+                "add_volunteer()",
+                "create_announcement_draft()",
+                "run_risk_scan()",
+                "search_documents()",
               ].map((tool) => (
                 <div
                   key={tool}
-                  className="rounded-lg border border-slate-200 bg-slate-50 p-2.5 text-emerald-800 font-semibold dark:border-slate-800 dark:bg-slate-950/60 dark:text-emerald-400"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-2 text-emerald-800 font-semibold dark:border-slate-800 dark:bg-slate-950/60 dark:text-emerald-400 truncate"
+                  title={tool}
                 >
                   ✓ {tool}
                 </div>
@@ -64,14 +65,14 @@ export function BentoFeatures() {
             </div>
           </article>
 
-          {/* Card 2: WhatsApp & Meeting Audio Parser (PS-3) */}
+          {/* Card 2: WhatsApp & Meeting Note Parser */}
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-slate-800 dark:bg-slate-900">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-400">
               <MessageSquareText className="h-5 w-5" />
             </div>
             <h3 className="mt-5 text-xl font-bold text-slate-900 dark:text-white">Turn WhatsApp Chats into Tasks</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Paste voice notes, meeting minutes, or messy group chats. The AI extracts action items, identifies who was mentioned, and creates organized cards on your task board.
+              Paste meeting minutes, WhatsApp group chat exports, or messy bullet notes. The AI extracts action items, identifies who was mentioned, and creates organized cards on your task board.
             </p>
             <div className="mt-6 rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5 text-xs dark:border-emerald-900/60 dark:bg-emerald-950/40">
               <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-400 font-bold">
@@ -82,7 +83,7 @@ export function BentoFeatures() {
             </div>
           </article>
 
-          {/* Card 3: Volunteer Workload Balancer (PS-3) */}
+          {/* Card 3: Volunteer Workload Balancer */}
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-slate-800 dark:bg-slate-900">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-400">
               <Users className="h-5 w-5" />
@@ -116,7 +117,7 @@ export function BentoFeatures() {
             </div>
           </article>
 
-          {/* Card 4: Event Knowledge Base RAG (PS-3) */}
+          {/* Card 4: Event Knowledge Base RAG */}
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-slate-800 dark:bg-slate-900">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-400">
               <Search className="h-5 w-5" />
@@ -134,46 +135,51 @@ export function BentoFeatures() {
             </div>
           </article>
 
-          {/* Card 5: Smart MC Anchor Scriptwriter (PS-5) */}
-          <article className="rounded-2xl border border-purple-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-purple-900/60 dark:bg-slate-900">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-900/60 dark:bg-purple-950/60 dark:text-purple-400">
-              <Mic2 className="h-5 w-5" />
+          {/* Card 5: Interactive Kanban & Dependencies */}
+          <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-400">
+              <Layers className="h-5 w-5" />
             </div>
             <div className="mt-5 flex items-center justify-between">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Smart Anchor MC (PS-5)</h3>
-              <span className="rounded-full bg-purple-50 px-2 py-0.5 text-[10px] font-semibold text-purple-700 border border-purple-200 dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-800/60">
-                LIVE TELEPROMPTER
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">Kanban &amp; Dependencies</h3>
+              <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/60">
+                depends_on
               </span>
             </div>
             <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Generates high-energy speaker introductions, smooth transitions, and emergency filler banter so your MC is never left with awkward silence.
+              3-column workflow board with explicit blocker tracking. Blocked tasks are flagged so dependencies are cleared before work begins.
             </p>
-            <div className="mt-5 rounded-xl border border-purple-100 bg-purple-50/40 p-3 text-xs text-purple-900 dark:border-purple-900/50 dark:bg-purple-950/30 dark:text-purple-200 font-medium">
-              &ldquo;Welcoming our next speaker, Dr. Roy...&rdquo;
-              <span className="block mt-1 text-[11px] text-purple-600 dark:text-purple-400 font-semibold">Speech Length: 35 seconds</span>
+            <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs dark:border-slate-800 dark:bg-slate-950/60">
+              <div className="flex items-center justify-between font-bold text-slate-800 dark:text-slate-200">
+                <span>Audi 2 Sound Check</span>
+                <span className="flex items-center gap-1 text-[10px] text-amber-700 dark:text-amber-400 font-mono">
+                  <Lock className="h-3 w-3" /> BLOCKED
+                </span>
+              </div>
+              <span className="block mt-1 text-[11px] text-slate-500 dark:text-slate-400">Blocked By: Dean Permit (Task #101)</span>
             </div>
           </article>
 
-          {/* Card 6: Live Stage Delay & Cascade Sync (PS-5) - Span 2 */}
+          {/* Card 6: AI Context-Aware Announcements - Span 2 */}
           <article className="rounded-2xl border border-slate-200 bg-white p-7 shadow-2xs hover:shadow-md transition-all dark:border-slate-800 dark:bg-slate-900 md:col-span-2">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-purple-200 bg-purple-50 text-purple-700 dark:border-purple-900/60 dark:bg-purple-950/60 dark:text-purple-400">
-              <Clock className="h-5 w-5" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/60 dark:text-emerald-400">
+              <Megaphone className="h-5 w-5" />
             </div>
-            <h3 className="mt-5 text-2xl font-bold text-slate-900 dark:text-white">Automatic Schedule Adjustments</h3>
+            <h3 className="mt-5 text-2xl font-bold text-slate-900 dark:text-white">Context-Aware Announcements with WhatsApp Export</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              When a speaker talks 15 minutes too long, Convene AI automatically shifts the rest of the day&rsquo;s schedule, notifies the backstage crew and caterers, and sends a filler script to the anchor.
+              Generate broadcast-ready updates for attendees, volunteers, or faculty sponsors. Convene pulls live progress and upcoming deadlines directly from your database and formats messages in clean WhatsApp markdown.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3 text-xs">
               <span className="flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 font-medium text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300">
                 <ShieldCheck className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
-                No More Stage Panic
+                Live Database Grounded
               </span>
-              <span className="flex items-center gap-1.5 rounded-lg border border-purple-200 bg-purple-50 px-3 py-1.5 font-medium text-purple-800 dark:border-purple-900/60 dark:bg-purple-950/40 dark:text-purple-300">
-                <WandSparkles className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                Auto Schedule Recalculation
+              <span className="flex items-center gap-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-1.5 font-medium text-emerald-800 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-300">
+                <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                WhatsApp Markdown Syntax
               </span>
               <span className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-1.5 text-slate-700 font-medium dark:border-slate-800 dark:bg-slate-950/60 dark:text-slate-300">
-                Stage + AV + Backstage Synced
+                1-Click Clipboard Export
               </span>
             </div>
           </article>

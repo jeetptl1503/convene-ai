@@ -28,7 +28,7 @@ export function LandingPage() {
         {/* Interactive Capability Matrix / 5-Tab Showcase */}
         <ShowcaseSection />
 
-        {/* PS-5: Dedicated Smart Anchor & Live Stage Flow Showcase */}
+        {/* Dedicated Autonomous Operations & Dependency Engine Showcase */}
         <StageFlowSection />
 
         {/* Bento Grid Features */}

@@ -9,7 +9,7 @@ import {
   ShieldAlert,
   FolderSearch,
   Megaphone,
-  Mic2,
+  Layers,
 } from "lucide-react";
 
 export function DeliverablesGrid() {
@@ -18,7 +18,7 @@ export function DeliverablesGrid() {
       icon: CalendarCheck,
       title: "AI-Assisted Event Planning",
       desc: "Give the AI your target event date. It reverse-engineers a complete milestone timeline from D-30 to launch day.",
-      tag: "Pre-Event Planning",
+      tag: "Milestone Planner",
       color: "emerald",
     },
     {
@@ -30,9 +30,9 @@ export function DeliverablesGrid() {
     },
     {
       icon: MessageSquareText,
-      title: "Meeting Notes & Voice Processing",
-      desc: "Paste messy WhatsApp group chats or drop voice memos. The AI automatically extracts action items and due dates.",
-      tag: "Chat to Tasks",
+      title: "Meeting Notes & Chat Extraction",
+      desc: "Paste messy WhatsApp group chats or raw meeting minutes. The AI automatically extracts action items and due dates.",
+      tag: "NLP Extraction",
       color: "emerald",
     },
     {
@@ -64,11 +64,11 @@ export function DeliverablesGrid() {
       color: "emerald",
     },
     {
-      icon: Mic2,
-      title: "Smart Anchor & Stage Flow (PS-5)",
-      desc: "Live stage run-of-show with auto-delay cascade recalculation and dynamic teleprompter scripts for the MC.",
-      tag: "Live Execution",
-      color: "purple",
+      icon: Layers,
+      title: "Interactive Kanban & Dependencies",
+      desc: "3-column workflow board with explicit blocker tracking (depends_on). Prevents tasks from starting until upstream dependencies clear.",
+      tag: "Task Graph",
+      color: "emerald",
     },
   ];
 
@@ -84,7 +84,7 @@ export function DeliverablesGrid() {
             Everything Required to Run a College Event
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600 sm:text-base dark:text-slate-400">
-            Built directly around the hackathon problem statement: centralized operations before the event and live synchronization on stage.
+            Built directly around real-world college club operations: autonomous task planning, volunteer burnout prevention, and instant meeting extraction.
           </p>
         </div>
 

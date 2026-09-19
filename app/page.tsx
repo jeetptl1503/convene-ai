@@ -2,23 +2,24 @@ import { Metadata } from "next";
 import { LandingPage } from "@/components/landing/LandingPage";
 
 export const metadata: Metadata = {
-  title: "Convene AI — Autonomous ClubOps & Smart Stage Flow",
+  title: "Convene AI — Autonomous Campus Club Operations & Event Planning",
   description:
-    "The autonomous operations and live stage management platform for campus clubs. Powered by Google Gemini 2.5 and Supabase PostgreSQL with pgvector.",
+    "The autonomous operations and event planning platform for campus clubs. Powered by Google Gemini 2.5 and Supabase PostgreSQL with pgvector semantic search.",
   keywords: [
     "ClubOps",
-    "Smart Anchor",
+    "Event Planning",
     "Campus Events",
     "Gemini 2.5",
     "Supabase",
     "pgvector",
     "AI Copilot",
-    "Stage Flow",
+    "Volunteer Management",
+    "Kanban",
   ],
   openGraph: {
-    title: "Convene AI — Autonomous ClubOps & Smart Stage Flow",
+    title: "Convene AI — Autonomous Campus Club Operations Platform",
     description:
-      "Plan campus events backward from event date, turn WhatsApp voice notes into assigned tasks, and command live stage flow with an AI that takes action.",
+      "Plan campus events backward from launch day, convert WhatsApp chats into database tasks, balance volunteer workloads, and track dependencies with an AI agent that takes real action.",
     type: "website",
   },
 };

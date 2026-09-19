@@ -8,24 +8,24 @@ import { SignInButton } from "./SignInButton";
 export function FaqFooter() {
   const faqs = [
     {
-      q: "How does Convene AI help before and during an event?",
-      a: "Before the event (PS-3), it turns chaotic WhatsApp voice notes into organized tasks, reverse-engineers a milestone timeline from your event date, and warns you if a volunteer is carrying too much work. On event day (PS-5), it transitions into your live stage copilot: generating teleprompter scripts for the MC and automatically updating the schedule when speakers run over.",
+      q: "How does Convene AI transform college club operations?",
+      a: "It automates every phase of club event management: converting messy WhatsApp chats into assigned Kanban tasks, reverse-engineering a complete milestone timeline from your event date (D-30 to launch day), monitoring volunteer capacity to prevent burnout, and running a 24/7 AI Risk Radar that spots blocked dependencies before they derail your timeline.",
     },
     {
       q: "Is this just another generic ChatGPT wrapper?",
-      a: "No. Regular chatbots only write text advice. Convene AI executes real actions in your database—assigning tasks, updating volunteer workloads, recalculating stage schedules, and searching your club's uploaded permission documents.",
+      a: "No. Regular chatbots only write text advice. Convene AI executes real actions in your Supabase database—creating tasks, reassigning duties, tracking task dependencies (depends_on), scanning project risks, and querying your club's uploaded permission documents using pgvector semantic search.",
     },
     {
-      q: "What happens when a speaker runs late on stage?",
-      a: "You simply click to apply the delay in the stage controller. Convene AI immediately shifts all upcoming sessions, alerts the sound booth and backstage crew, and gives the MC an entertaining filler script so there is never awkward silence.",
+      q: "How does the AI prevent volunteer burnout?",
+      a: "Convene tracks the workload capacity of every volunteer on your roster. When an active volunteer carries more tasks than their safe capacity (e.g. 4+ critical duties), the Risk Radar flags an overload alert and enables a 1-click rebalance to transfer tasks to teammates with available bandwidth.",
     },
     {
-      q: "How does the member name matching work?",
-      a: "When you paste a meeting note or voice note like 'Karan please finalize the venue', the AI matches 'Karan' against your registered club roster and assigns the task directly to Karan Singh with a deadline.",
+      q: "How does member name matching work?",
+      a: "When you paste a meeting note or WhatsApp chat like 'Karan please finalize the venue', the AI fuzzy-matches 'Karan' against your registered club roster, assigns the task directly to Karan Singh in Supabase, and extracts deadlines and priorities.",
     },
     {
       q: "Is this free for our college club to use?",
-      a: "Yes! Convene AI is 100% free and open-source under the MIT License. Any student club can clone the GitHub repository, plug in their free Gemini API key, and launch it locally or on Vercel without paying for servers.",
+      a: "Yes! Convene AI is 100% free and open-source under the MIT License. Any student club can clone the GitHub repository, connect their Supabase project and free Gemini API key, and deploy it locally or on Vercel.",
     },
   ];
 
@@ -56,12 +56,12 @@ export function FaqFooter() {
 
       {/* Bottom CTA Banner & Footer */}
       <footer className="relative z-10 px-5 pb-10 pt-16 sm:px-8 bg-white transition-colors duration-200 dark:bg-slate-950">
-        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50/60 via-slate-50 to-purple-50/40 p-8 text-center shadow-2xs dark:border-slate-800 dark:bg-gradient-to-br dark:from-emerald-950/30 dark:via-slate-900 dark:to-purple-950/20 sm:p-16">
+        <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-50/60 via-slate-50 to-teal-50/40 p-8 text-center shadow-2xs dark:border-slate-800 dark:bg-gradient-to-br dark:from-emerald-950/30 dark:via-slate-900 dark:to-teal-950/20 sm:p-16">
           <Hexagon className="mx-auto h-12 w-12 fill-emerald-100 text-emerald-600 dark:fill-emerald-950/50 dark:text-emerald-400" />
           
           <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
             Stop Campus Event Chaos.<br />
-            <span className="text-emerald-700 dark:text-emerald-400">Run Your Club &amp; Stage with Confidence.</span>
+            <span className="text-emerald-700 dark:text-emerald-400">Run Your Club Operations with Confidence.</span>
           </h2>
           
           <p className="mx-auto mt-4 max-w-xl text-sm text-slate-600 dark:text-slate-400">
@@ -88,7 +88,7 @@ export function FaqFooter() {
           <div className="flex items-center gap-2">
             <span className="font-bold text-slate-900 dark:text-white">Convene AI</span>
             <span>·</span>
-            <span>Built for ClubOps AI &amp; Smart Anchor Hackathon Tracks</span>
+            <span>Built for Autonomous Club Operations &amp; Campus Event Planning</span>
           </div>
           <div className="flex items-center gap-4 font-medium">
             <a href="https://github.com/jeetptl1503/convene-ai" target="_blank" rel="noreferrer" className="hover:text-slate-900 dark:hover:text-white transition-colors">

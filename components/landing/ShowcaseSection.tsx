@@ -6,7 +6,6 @@ import {
   CalendarDays,
   MessageSquareText,
   ShieldAlert,
-  Mic2,
   CircleDot,
   Check,
   Radio,
@@ -14,15 +13,16 @@ import {
   ListChecks,
   Users,
   Sparkles,
-  Volume2,
-  Clock,
+  RefreshCw,
+  ArrowRight,
+  UserCheck,
 } from "lucide-react";
 
 export function ShowcaseSection() {
   const [activeTab, setActiveTab] = useState(0);
   const [prompt, setPrompt] = useState<string | null>(null);
   const [reasoning, setReasoning] = useState(false);
-  const [anchorScriptType, setAnchorScriptType] = useState<"intro" | "delay" | "closing">("intro");
+  const [rebalanceDone, setRebalanceDone] = useState(false);
 
   const runPrompt = (value: string) => {
     setPrompt(value);
@@ -31,11 +31,11 @@ export function ShowcaseSection() {
   };
 
   const tabs = [
-    { label: "AI Copilot", icon: Bot, badge: "PS-3" },
-    { label: "Smart Timeline", icon: CalendarDays, badge: "PS-3" },
-    { label: "Chat & Note Parser", icon: MessageSquareText, badge: "PS-3" },
-    { label: "Risk Radar", icon: ShieldAlert, badge: "PS-3" },
-    { label: "Smart MC & Stage", icon: Mic2, badge: "PS-5" },
+    { label: "AI Copilot", icon: Bot, badge: "Agent" },
+    { label: "Smart Timeline", icon: CalendarDays, badge: "D-30" },
+    { label: "Chat & Note Parser", icon: MessageSquareText, badge: "NLP" },
+    { label: "Risk Radar", icon: ShieldAlert, badge: "24/7" },
+    { label: "Workload Balancer", icon: Users, badge: "Roster" },
   ];
 
   return (
@@ -87,13 +87,7 @@ export function ShowcaseSection() {
               >
                 <tab.icon className={`h-4 w-4 shrink-0 ${activeTab === i ? "text-emerald-600 dark:text-emerald-400" : "text-slate-400 dark:text-slate-500"}`} />
                 <span className="truncate">{tab.label}</span>
-                <span
-                  className={`hidden text-[10px] font-mono px-1.5 py-0.5 rounded font-semibold sm:inline ${
-                    tab.badge === "PS-5"
-                      ? "bg-purple-100 text-purple-800 dark:bg-purple-950/80 dark:text-purple-300"
-                      : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300"
-                  }`}
-                >
+                <span className="hidden text-[10px] font-mono px-1.5 py-0.5 rounded font-semibold sm:inline bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300">
                   {tab.badge}
                 </span>
               </button>
@@ -102,7 +96,7 @@ export function ShowcaseSection() {
 
           {/* Tab Content Display */}
           <div className="min-h-[400px] p-6 sm:p-8 bg-white dark:bg-slate-900">
-            {/* TAB 0: COPILOT AGENT (PS-3) */}
+            {/* TAB 0: AUTONOMOUS COPILOT AGENT */}
             {activeTab === 0 && (
               <div className="grid gap-6 md:grid-cols-[1.1fr_.9fr]">
                 <div>
@@ -209,7 +203,7 @@ export function ShowcaseSection() {
               </div>
             )}
 
-            {/* TAB 1: BACKWARD PLANNER (PS-3) */}
+            {/* TAB 1: BACKWARD PLANNER */}
             {activeTab === 1 && (
               <div>
                 <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
@@ -252,12 +246,12 @@ export function ShowcaseSection() {
               </div>
             )}
 
-            {/* TAB 2: MEETING EXTRACTOR (PS-3) */}
+            {/* TAB 2: MEETING EXTRACTOR */}
             {activeTab === 2 && (
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-800 dark:bg-slate-950/60">
                   <div className="mb-3 flex items-center justify-between text-xs font-semibold text-slate-600 dark:text-slate-400">
-                    <span>RAW WHATSAPP CHAT / VOICE NOTE</span>
+                    <span>RAW WHATSAPP CHAT / MEETING TRANSCRIPT</span>
                     <span className="text-emerald-700 dark:text-emerald-400 font-mono">11:42 PM</span>
                   </div>
                   <div className="rounded-xl border border-slate-200 bg-white p-4 text-xs leading-relaxed text-slate-700 shadow-2xs dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
@@ -296,7 +290,7 @@ export function ShowcaseSection() {
               </div>
             )}
 
-            {/* TAB 3: RISK RADAR (PS-3) */}
+            {/* TAB 3: RISK RADAR */}
             {activeTab === 3 && (
               <div className="space-y-4">
                 <div className="rounded-xl border border-rose-200 bg-rose-50/60 p-4 dark:border-rose-900/60 dark:bg-rose-950/30">
@@ -331,96 +325,144 @@ export function ShowcaseSection() {
               </div>
             )}
 
-            {/* TAB 4: SMART ANCHOR & STAGE FLOW (PS-5) */}
+            {/* TAB 4: VOLUNTEER WORKLOAD & REBALANCER */}
             {activeTab === 4 && (
               <div className="grid gap-6 md:grid-cols-[1.1fr_.9fr]">
                 <div>
                   <div className="mb-3 flex items-center justify-between">
-                    <span className="text-xs font-bold text-purple-900 dark:text-purple-300 flex items-center gap-1.5">
-                      <Mic2 className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-                      Live MC Script Generator
+                    <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                      <Users className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                      Live Volunteer Roster &amp; Capacity Tracker
                     </span>
-                    <div className="flex gap-1.5">
-                      {(["intro", "delay", "closing"] as const).map((mode) => (
-                        <button
-                          key={mode}
-                          onClick={() => setAnchorScriptType(mode)}
-                          className={`rounded-lg px-2.5 py-1 text-[11px] font-semibold transition-all cursor-pointer ${
-                            anchorScriptType === mode
-                              ? "bg-purple-600 text-white shadow-2xs dark:bg-purple-500 dark:text-white"
-                              : "border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-800/60 dark:text-slate-300 dark:hover:bg-slate-800"
-                          }`}
-                        >
-                          {mode === "intro" ? "Speaker Intro" : mode === "delay" ? "Filler Banter" : "Closing Script"}
-                        </button>
-                      ))}
-                    </div>
+                    <button
+                      onClick={() => setRebalanceDone(!rebalanceDone)}
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800 transition-all hover:bg-emerald-100 dark:border-emerald-700/60 dark:bg-emerald-950/60 dark:text-emerald-300 dark:hover:bg-emerald-900 cursor-pointer shadow-2xs"
+                    >
+                      <RefreshCw className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <span>{rebalanceDone ? "Reset Simulation" : "Simulate AI 1-Click Rebalance"}</span>
+                    </button>
                   </div>
 
-                  <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-4 dark:border-purple-900/60 dark:bg-purple-950/30">
-                    <div className="flex items-center justify-between text-xs font-semibold text-purple-900 dark:text-purple-300 mb-2">
-                      <span>TELEPROMPTER PREVIEW</span>
-                      <span className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-mono text-[11px]">
-                        <Volume2 className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                        READY TO READ
-                      </span>
+                  <div className="space-y-3.5 rounded-xl border border-slate-200 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-slate-950/60">
+                    {/* Volunteer 1: Priya */}
+                    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-slate-900">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs font-bold text-slate-900 dark:text-white">Priya Patel</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400">Tech &amp; AV Lead · 4 Max Capacity</p>
+                        </div>
+                        <span
+                          className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold font-mono ${
+                            rebalanceDone
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/60"
+                              : "bg-rose-50 text-rose-700 border border-rose-200 dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-800/60"
+                          }`}
+                        >
+                          {rebalanceDone ? "3 / 4 TASKS (75% HEALTHY)" : "4 / 4 TASKS (100% OVERLOAD)"}
+                        </span>
+                      </div>
+                      <div className="mt-2.5 h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div
+                          style={{ width: rebalanceDone ? "75%" : "100%" }}
+                          className={`h-full rounded-full transition-all duration-500 ${
+                            rebalanceDone ? "bg-emerald-500" : "bg-rose-500"
+                          }`}
+                        />
+                      </div>
+                      <div className="mt-3 space-y-1.5 text-[11px]">
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
+                          <span>• Audi 2 Sound System Calibration</span>
+                          <span className="font-mono text-emerald-600 dark:text-emerald-400">In Progress</span>
+                        </div>
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
+                          <span>• Stage Projector HDMI Cabling</span>
+                          <span className="font-mono text-slate-400">Todo</span>
+                        </div>
+                        {!rebalanceDone ? (
+                          <div className="flex items-center justify-between text-rose-600 dark:text-rose-400 font-semibold bg-rose-50/50 dark:bg-rose-950/30 px-2 py-1 rounded">
+                            <span>• Guest Wi-Fi Router Setup (Overload item)</span>
+                            <span className="font-mono text-[10px] text-rose-700 dark:text-rose-300 font-bold">BOTTLENECK</span>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/30 px-2 py-1 rounded">
+                            <span className="italic">✓ Wi-Fi Setup transferred to Rohan</span>
+                            <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">REBALANCED</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    {anchorScriptType === "intro" && (
-                      <div className="rounded-lg border border-purple-200/80 bg-white p-3 text-xs leading-relaxed text-slate-800 shadow-2xs dark:border-purple-900/60 dark:bg-slate-900 dark:text-slate-200">
-                        &ldquo;Innovators, creators, and builders — welcome to TechFest 2026! Before we announce the hackathon challenges, please put your hands together for our keynote guest: <strong className="text-purple-800 dark:text-purple-300 font-bold">Dr. Ramesh Roy</strong>, Pioneer of Generative Systems!&rdquo;
+                    {/* Volunteer 2: Rohan */}
+                    <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-2xs dark:border-slate-800 dark:bg-slate-900">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="text-xs font-bold text-slate-900 dark:text-white">Rohan Verma</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400">Operations Crew · 4 Max Capacity</p>
+                        </div>
+                        <span className="rounded-full px-2.5 py-0.5 text-[10px] font-bold font-mono bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800/60">
+                          {rebalanceDone ? "2 / 4 TASKS (50% BALANCED)" : "1 / 4 TASKS (25% AVAILABLE)"}
+                        </span>
                       </div>
-                    )}
-
-                    {anchorScriptType === "delay" && (
-                      <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs leading-relaxed text-amber-900 shadow-2xs dark:border-amber-900/60 dark:bg-amber-950/40 dark:text-amber-200">
-                        &ldquo;Hey everyone, while our tech crew does a quick 2-minute projector check, let’s do a quick show of hands: how many teams are building with AI agents for the first time? Awesome! Keep those team brainstorms going, we start in 90 seconds!&rdquo;
+                      <div className="mt-2.5 h-2 w-full rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                        <div
+                          style={{ width: rebalanceDone ? "50%" : "25%" }}
+                          className="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                        />
                       </div>
-                    )}
-
-                    {anchorScriptType === "closing" && (
-                      <div className="rounded-lg border border-purple-200/80 bg-white p-3 text-xs leading-relaxed text-slate-800 shadow-2xs dark:border-purple-900/60 dark:bg-slate-900 dark:text-slate-200">
-                        &ldquo;What an incredible day! Over 300 hackers and 45 projects submitted. A huge thank you to our judges, faculty, and volunteer team. Please head to Audi 1 foyer for dinner and networking!&rdquo;
+                      <div className="mt-3 space-y-1.5 text-[11px]">
+                        <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
+                          <span>• Attendee Kit Distribution</span>
+                          <span className="font-mono text-slate-400">Todo</span>
+                        </div>
+                        {rebalanceDone && (
+                          <div className="flex items-center justify-between text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/30 px-2 py-1 rounded">
+                            <span className="font-semibold">+ Guest Wi-Fi Router Setup (Assigned by AI)</span>
+                            <span className="font-mono text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">NEW TASK</span>
+                          </div>
+                        )}
                       </div>
-                    )}
-
-                    <div className="mt-4 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-                      <span>Tone: High Energy &amp; Natural</span>
-                      <span className="font-semibold text-purple-800 dark:text-purple-300">Reading Time: ~30-45 seconds</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Stage Timeline & Delay Cascade */}
+                {/* Right: Automated Rebalance Engine Log */}
                 <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 dark:border-slate-800 dark:bg-slate-950/60">
                   <div className="mb-3 flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
-                    <span>LIVE STAGE TIMELINE</span>
-                    <Clock className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+                    <span>REBALANCE ENGINE &amp; AUDIT TRAIL</span>
+                    <Database className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                   </div>
 
-                  <div className="space-y-2.5">
-                    <div className="rounded-xl border border-emerald-200 bg-white p-3 text-xs shadow-2xs dark:border-emerald-900/60 dark:bg-slate-900">
-                      <div className="flex justify-between text-[11px] font-semibold text-emerald-700 dark:text-emerald-400">
-                        <span>10:00 AM · COMPLETED</span>
-                        <span>ON TIME</span>
-                      </div>
-                      <p className="font-bold text-slate-900 dark:text-white mt-1">Inauguration &amp; Welcome Address</p>
+                  <div className="space-y-2.5 text-xs font-mono">
+                    <div className="rounded-xl border border-slate-200 bg-white p-3 text-slate-700 shadow-2xs dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+                      <div className="text-[10px] text-slate-400 uppercase">Step 1 · Capacity Scanner</div>
+                      <p className="mt-1 font-semibold text-slate-900 dark:text-white">
+                        scan_workload(threshold: 0.85)
+                      </p>
+                      <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                        Priya Patel identified at 100% capacity (4 active tasks). Bottleneck alert generated.
+                      </p>
                     </div>
 
-                    <div className="rounded-xl border border-purple-300 bg-purple-50/60 p-3 text-xs shadow-2xs dark:border-purple-800/80 dark:bg-purple-950/30">
-                      <div className="flex justify-between text-[11px] font-semibold text-purple-800 dark:text-purple-300">
-                        <span>10:45 AM · LIVE ON STAGE</span>
-                        <span className="text-amber-700 dark:text-amber-400 font-bold">+4m OVERRUN</span>
-                      </div>
-                      <p className="font-bold text-slate-900 dark:text-white mt-1">Keynote: Dr. Ramesh Roy</p>
+                    <div className="rounded-xl border border-slate-200 bg-white p-3 text-slate-700 shadow-2xs dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
+                      <div className="text-[10px] text-slate-400 uppercase">Step 2 · Candidate Matcher</div>
+                      <p className="mt-1 font-semibold text-slate-900 dark:text-white">
+                        match_available_volunteer(skills: [&quot;Hardware&quot;, &quot;Network&quot;])
+                      </p>
+                      <p className="mt-1 text-[11px] text-slate-500 dark:text-slate-400 font-sans">
+                        Rohan Verma has 3 available capacity slots and matching logistics tags.
+                      </p>
                     </div>
 
-                    <div className="rounded-xl border border-slate-200 bg-white p-3 text-xs opacity-80 dark:border-slate-800 dark:bg-slate-900">
-                      <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400">
-                        <span>11:34 AM (AUTOMATICALLY SHIFTED)</span>
-                        <span className="text-purple-700 dark:text-purple-400 font-semibold">SCHEDULE UPDATED</span>
-                      </div>
-                      <p className="font-semibold text-slate-700 dark:text-slate-300 mt-1">Hackathon Challenges Announcement</p>
+                    <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 text-emerald-900 shadow-2xs dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-200">
+                      <div className="text-[10px] text-emerald-600 dark:text-emerald-400 uppercase">Step 3 · Database Mutation</div>
+                      <p className="mt-1 font-semibold text-emerald-800 dark:text-emerald-300">
+                        {rebalanceDone ? "reassign_task(task_id: 104, to: \"Rohan\") ✓" : "Waiting for rebalance trigger..."}
+                      </p>
+                      <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-400 font-sans">
+                        {rebalanceDone
+                          ? "Supabase tasks and activity_logs updated with full timestamp and reason."
+                          : "Click 'Simulate AI 1-Click Rebalance' above to execute."}
+                      </p>
                     </div>
                   </div>
                 </div>
