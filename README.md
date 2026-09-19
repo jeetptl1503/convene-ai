@@ -178,18 +178,6 @@ convene-ai/
 
 ---
 
-## 🗺️ Product Roadmap
-
-* **Stage 1 (Current Evaluation):**
-  * Core ClubOps operations — Backward Milestone Planner, Autonomous Action Copilot, Volunteer Workload Monitoring, Meeting Extractor, Risk Radar, and pgvector RAG.
-* **Stage 2 (Upcoming Production Features):**
-  * **Live Stage Flow Controller (`/stage-flow`)**: Real-time agenda run-of-show with dynamic schedule cascade algorithms (when one speaker overruns, downstream sessions automatically push back).
-  * **AI Teleprompter & Anchor Filler**: Generates contextual filler banter, speaker introductions, and transition scripts during live stage delays.
-  * **Direct WhatsApp Voice Note Pipeline**: Native audio ingestion (`.mp3`, `.ogg`, `.wav`) with Gemini multimodal speech transcription and immediate task extraction.
-  * **Web Push Notifications**: Browser-level alerts for critical task delays and volunteer rebalancing.
-  * *(See full architectural designs and specifications in [ROADMAP_FEATURES_TO_BE_ADDED.md](ROADMAP_FEATURES_TO_BE_ADDED.md))*.
-
----
 
 ## 📄 License
 
