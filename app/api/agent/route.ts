@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getClient, MODELS } from "@/lib/ai";
+import { getClient, MODELS, embedText } from "@/lib/ai";
 import { createServerClient } from "@/lib/supabase/server";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 import { Type } from "@google/genai";
@@ -451,16 +451,61 @@ export async function POST(req: Request) {
 
         case "search_documents": {
           const { query } = args as { query: string };
-          const { data: docs } = await supabase
-            .from("documents")
-            .select("title, content")
-            .eq("event_id", DEMO_EVENT_ID)
-            .ilike("title", `%${query}%`)
-            .limit(5);
 
-          return {
-            results: docs && docs.length > 0 ? docs : "No matching documents found in database.",
-          };
+          try {
+            const queryEmbedding = await embedText(query);
+            const { data: matchedChunks } = await supabase.rpc(
+              "match_document_chunks",
+              {
+                query_embedding: JSON.stringify(queryEmbedding),
+                match_threshold: 0.15,
+                match_count: 5,
+              }
+            );
+
+            if (!matchedChunks || matchedChunks.length === 0) {
+              // Fallback to title search
+              const { data: docs } = await supabase
+                .from("documents")
+                .select("title, content")
+                .eq("event_id", DEMO_EVENT_ID)
+                .ilike("title", `%${query}%`)
+                .limit(3);
+
+              return {
+                results: docs && docs.length > 0 ? docs : "No matching documents found.",
+              };
+            }
+
+            const docIds = [...new Set(matchedChunks.map((c: { document_id: string }) => c.document_id))];
+            const { data: docTitles } = await supabase
+              .from("documents")
+              .select("id, title")
+              .in("id", docIds);
+
+            const titleMap = new Map<string, string>();
+            (docTitles || []).forEach((d: { id: string; title: string }) => titleMap.set(d.id, d.title));
+
+            return {
+              results: matchedChunks.map((c: { document_id: string; content: string; similarity: number }) => ({
+                document_title: titleMap.get(c.document_id) || "Unknown",
+                content: c.content,
+                relevance: c.similarity,
+              })),
+            };
+          } catch {
+            // If RPC fails (e.g. function not created yet), fallback to title search
+            const { data: docs } = await supabase
+              .from("documents")
+              .select("title, content")
+              .eq("event_id", DEMO_EVENT_ID)
+              .ilike("title", `%${query}%`)
+              .limit(3);
+
+            return {
+              results: docs && docs.length > 0 ? docs : "No matching documents found.",
+            };
+          }
         }
 
         default:

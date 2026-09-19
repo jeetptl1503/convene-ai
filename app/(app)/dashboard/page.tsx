@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import PageHeader from "../../components/page-header";
+import PlannerModal from "../../components/planner-modal";
 import { supabase } from "@/lib/supabase/client";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 import type { Task, Risk, ActivityLog, Member } from "@/types/database";
@@ -17,6 +18,7 @@ export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isPlannerOpen, setIsPlannerOpen] = useState(false);
 
   const loadDashboard = useCallback(async () => {
     try {
@@ -141,6 +143,12 @@ export default function DashboardPage() {
         description="Overview of your event operations"
         action={
           <div className="flex gap-2">
+            <button
+              onClick={() => setIsPlannerOpen(true)}
+              className="inline-flex items-center gap-2 rounded-lg border border-accent bg-accent/10 px-4 py-2 text-sm font-medium text-accent-light hover:bg-accent/20 transition"
+            >
+              <span>🗓️</span> Plan with AI
+            </button>
             <Link
               href="/tasks"
               className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-medium text-white hover:bg-accent/80 transition shadow-sm"
@@ -348,6 +356,12 @@ export default function DashboardPage() {
           )}
         </div>
       </div>
+
+      <PlannerModal
+        isOpen={isPlannerOpen}
+        onClose={() => setIsPlannerOpen(false)}
+        onCreated={loadDashboard}
+      />
     </div>
   );
 }
