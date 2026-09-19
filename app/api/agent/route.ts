@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getClient, MODELS, embedText, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
+import { getClient, MODELS, MODEL_FALLBACKS, embedText, AI_ERROR_FRIENDLY_MESSAGE } from "@/lib/ai";
 import { createServerClient } from "@/lib/supabase/server";
 import { DEMO_EVENT_ID } from "@/lib/constants";
 import { Type } from "@google/genai";
@@ -575,15 +575,34 @@ Whenever the user asks you to create, assign, update, inspect, or manage tasks, 
 DO NOT just talk about taking action — actually execute the functions.
 After calling tools, concisely summarize what concrete actions were performed in the database.`;
 
-    const chat = client.chats.create({
-      model: MODELS.flash,
-      config: {
-        systemInstruction,
-        tools: [{ functionDeclarations: toolDeclarations as any }],
-      },
-    });
+    const candidateModels = [MODELS.flash, ...(MODEL_FALLBACKS[MODELS.flash] || [])];
 
-    let currentResponse = await chat.sendMessage({ message });
+    let currentResponse: any = null;
+    let activeChat: any = null;
+    let lastChatError: unknown = null;
+
+    for (const modelId of candidateModels) {
+      try {
+        const testChat = client.chats.create({
+          model: modelId,
+          config: {
+            systemInstruction,
+            tools: [{ functionDeclarations: toolDeclarations as any }],
+          },
+        });
+        currentResponse = await testChat.sendMessage({ message });
+        activeChat = testChat;
+        break;
+      } catch (err: unknown) {
+        lastChatError = err;
+        console.warn(`Agent chat model ${modelId} failed, trying fallback:`, err);
+      }
+    }
+
+    if (!currentResponse || !activeChat) {
+      throw lastChatError || new Error("All chat models failed");
+    }
+
     let loopCount = 0;
     const MAX_TOOL_ROUNDS = 5;
 
@@ -606,7 +625,12 @@ After calling tools, concisely summarize what concrete actions were performed in
         });
       }
 
-      currentResponse = await chat.sendMessage({ message: toolParts });
+      try {
+        currentResponse = await activeChat.sendMessage({ message: toolParts });
+      } catch (err: unknown) {
+        console.warn("Failed sending tool parts back to agent, stopping tool loop:", err);
+        break;
+      }
     }
 
     return NextResponse.json({

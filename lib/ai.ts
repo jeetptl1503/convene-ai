@@ -16,8 +16,13 @@ const MODELS = {
 } as const;
 
 const MODEL_FALLBACKS: Record<string, string[]> = {
-  "gemini-3.6-flash": ["gemini-3.5-flash", "gemini-flash-latest"],
-  "gemini-3.5-flash-lite": ["gemini-3.1-flash-lite", "gemini-flash-lite-latest"],
+  "gemini-3.6-flash": [
+    "gemini-3.5-flash-lite",
+    "gemini-flash-lite-latest",
+    "gemini-3.1-flash-lite",
+    "gemini-flash-latest",
+  ],
+  "gemini-3.5-flash-lite": ["gemini-flash-lite-latest", "gemini-3.1-flash-lite"],
   "gemini-embedding-001": ["gemini-embedding-2", "gemini-embedding-2-preview"],
 };
 
@@ -200,14 +205,24 @@ async function tryGenerateWithModel(
           ? (err as { status: number }).status
           : undefined;
 
+      const isQuotaExhausted =
+        err instanceof Error &&
+        (err.message.includes("quota") ||
+          err.message.includes("RESOURCE_EXHAUSTED") ||
+          err.message.includes("exceeded your current quota"));
+
+      if (isQuotaExhausted) {
+        // Daily quota limit cannot be resolved with retry backoff; fail immediately so fallback model takes over
+        throw err;
+      }
+
       const isTransient =
         status === 429 ||
         status === 503 ||
         (err instanceof Error &&
           (err.message.includes("503") ||
             err.message.includes("UNAVAILABLE") ||
-            err.message.includes("high demand") ||
-            err.message.includes("Resource has been exhausted")));
+            err.message.includes("high demand")));
 
       if (isTransient && attempt < MAX_RETRIES) {
         await sleep(BACKOFF_MS[attempt]);
