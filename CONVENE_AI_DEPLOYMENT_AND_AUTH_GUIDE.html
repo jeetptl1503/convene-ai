@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convene AI — Deployment & Google OAuth Setup Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+    :root {
+      --primary: #059669;
+      --primary-dark: #065f46;
+      --slate-900: #0f172a;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-200: #e2e8f0;
+      --slate-50: #f8fafc;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--slate-700);
+      background: #f1f5f9;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 48px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+      border: 1px solid var(--slate-200);
+    }
+
+    .header-badge {
+      display: inline-block;
+      background: #ecfdf5;
+      color: var(--primary-dark);
+      border: 1px solid #a7f3d0;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--slate-900);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--slate-600);
+      margin-bottom: 24px;
+    }
+
+    .print-btn {
+      float: right;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .print-btn:hover { background: var(--primary-dark); }
+
+    .callout {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: var(--primary-dark);
+    }
+    .callout strong { color: #047857; }
+
+    h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-top: 28px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    ol, ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: #f1f5f9;
+      color: var(--slate-900);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      margin: 10px 0 16px 0;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--slate-200);
+      padding: 10px 12px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--slate-50);
+      font-weight: 700;
+      color: var(--slate-900);
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .print-btn { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="print-btn" onclick="window.print()">🖨️ Save as PDF / Print</button>
+    <div class="header-badge">Convene AI — Operations Manual</div>
+    <h1>Deployment & Google OAuth Setup Guide</h1>
+    <p class="subtitle">Step-by-step instructions for repository owner and Vercel / Supabase administrator</p>
+
+    <div class="callout">
+      <strong>Zero Code Required:</strong> The frontend application is already 100% written and integrated with <code>supabase.auth.signInWithOAuth({ provider: 'google' })</code>. The owner only needs to perform this one-time configuration in Google Cloud Console and Supabase.
+    </div>
+
+    <h2>Part 1: Retrieve OAuth Callback URL from Supabase</h2>
+    <ol>
+      <li>Log in to <a href="https://supabase.com/dashboard" target="_blank">supabase.com/dashboard</a> and select your <strong>Convene AI</strong> project.</li>
+      <li>In the left sidebar, click <strong>Authentication</strong> (user icon) &rarr; <strong>Providers</strong>.</li>
+      <li>Find <strong>Google</strong> in the providers list and click to expand it.</li>
+      <li>Copy the value in the box labeled <strong>Callback URL (for OAuth)</strong>:
+        <pre>https://&lt;your-project-id&gt;.supabase.co/auth/v1/callback</pre>
+      </li>
+    </ol>
+
+    <h2>Part 2: Create OAuth Credentials in Google Cloud Console</h2>
+    <ol>
+      <li>Navigate to <a href="https://console.cloud.google.com/" target="_blank">console.cloud.google.com</a> and sign in.</li>
+      <li>Click the top project dropdown &rarr; <strong>New Project</strong> &rarr; Name it <code>Convene AI</code> &rarr; Click <strong>Create</strong>.</li>
+      <li>In the search bar or left menu, open <strong>OAuth consent screen</strong>:
+        <ul>
+          <li>User Type: Select <strong>External</strong> &rarr; Click <strong>Create</strong>.</li>
+          <li>App Name: <code>Convene AI</code></li>
+          <li>User support email: Select your email.</li>
+          <li>Developer contact email: Enter your email.</li>
+          <li>Click <strong>Save and Continue</strong> through Scopes and Test Users.</li>
+        </ul>
+      </li>
+      <li>In the left sidebar, click <strong>Credentials</strong>:
+        <ul>
+          <li>Click <strong>+ CREATE CREDENTIALS</strong> &rarr; Select <strong>OAuth client ID</strong>.</li>
+          <li>Application type: <strong>Web application</strong>.</li>
+          <li>Name: <code>Convene AI Web Client</code>.</li>
+          <li><strong>Authorized JavaScript origins:</strong> Add:
+            <br>• <code>https://&lt;your-project-id&gt;.supabase.co</code>
+            <br>• <code>https://&lt;your-app-name&gt;.vercel.app</code>
+            <br>• <code>http://localhost:3000</code> and <code>http://localhost:3003</code>
+          </li>
+          <li><strong>Authorized redirect URIs:</strong> Paste the exact Supabase callback URL from Part 1:
+            <br>• <code>https://&lt;your-project-id&gt;.supabase.co/auth/v1/callback</code>
+          </li>
+          <li>Click <strong>Create</strong>. Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>Part 3: Enable Google Provider in Supabase</h2>
+    <ol>
+      <li>Return to <strong>Supabase Dashboard</strong> &rarr; <strong>Authentication</strong> &rarr; <strong>Providers</strong> &rarr; <strong>Google</strong>.</li>
+      <li>Toggle the switch to <strong>ON (Enabled)</strong>.</li>
+      <li>Paste the <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
+      <li>Click <strong>Save</strong>.</li>
+    </ol>
+
+    <h2>Part 4: Configure Supabase Redirect Whitelist for Vercel</h2>
+    <ol>
+      <li>In Supabase, click <strong>Authentication</strong> &rarr; <strong>URL Configuration</strong>.</li>
+      <li>Set <strong>Site URL</strong> to: <code>https://&lt;your-app-name&gt;.vercel.app</code></li>
+      <li>Under <strong>Redirect URLs</strong>, add: <code>https://&lt;your-app-name&gt;.vercel.app/**</code></li>
+      <li>Click <strong>Save</strong>.</li>
+    </ol>
+
+    <h2>Part 5: Vercel Redeployment & Environment Variables</h2>
+    <ol>
+      <li>Go to <a href="https://vercel.com" target="_blank">vercel.com</a> &rarr; Select your <strong>convene-ai</strong> project.</li>
+      <li>Under <strong>Settings</strong> &rarr; <strong>Environment Variables</strong>, verify:
+        <br>• <code>NEXT_PUBLIC_SUPABASE_URL</code>
+        <br>• <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code>
+        <br>• <code>SUPABASE_SERVICE_ROLE_KEY</code>
+        <br>• <code>GEMINI_API_KEY</code>
+      </li>
+      <li>Go to the <strong>Deployments</strong> tab &rarr; Click <strong>Redeploy</strong> on the latest commit.</li>
+    </ol>
+
+    <h2>Part 6: Verified End-to-End User Flow</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Step</th>
+          <th>Screen / Route</th>
+          <th>User Action & System Behavior</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Landing Page (<code>/</code>)</td>
+          <td>Visitor reads platform features and clicks <strong>Sign in with Google</strong>.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Sign-in Screen (<code>/signin</code>)</td>
+          <td>User clicks <strong>Continue with Google</strong>, triggering Supabase Google OAuth.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Google Consent</td>
+          <td>User selects Google email ID; Google verifies identity and returns to Supabase.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Onboarding (<code>/account-creation</code>)</td>
+          <td>User selects their Role (President, Lead, Volunteer) and names their Club & Event.</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Dashboard (<code>/dashboard</code>)</td>
+          <td>User enters command center with live Kanban, Roster, RAG, and AI Copilot.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
