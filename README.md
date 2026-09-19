@@ -2,7 +2,7 @@
 
 <div align="center">
 
-### 🎪 Autonomous ClubOps & Live Stage Management for Campus Events
+### 🎪 Autonomous ClubOps & Live Stage Management Platform
 **Built for the ClubOps AI Hackathon Track**
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.3.5-black?logo=next.js)](https://nextjs.org/)
@@ -16,127 +16,123 @@
 
 ---
 
-## 💡 What is Convene AI?
+## 🎯 Problem Statement: The Reality of Campus Event Operations
 
-College club events and campus fests are notorious for **operational chaos**:
-* Action items get buried in 200+ unread WhatsApp messages.
-* Task spreadsheets fall out of date the day they are created.
-* Volunteers get overwhelmed or burnt out with uneven workloads.
-* Organizers discover critical bottlenecks 24 hours before showtime.
+Student organizations, college clubs, and campus fests face severe, recurring operational bottlenecks:
 
-**Convene AI transforms this chaos into an autonomous operations command center.** Rather than another passive task board or a simple chatbot, Convene AI features an **Agentic Copilot with real database tools** that can autonomously schedule milestones, match tasks to volunteer skills, parse messy meeting notes into assigned tasks, and detect operational risks before they derail your event.
+1. **Information Chaos & Lost Deliverables:** Critical decisions and tasks are scattered across unorganized WhatsApp group chats, forgotten Google Docs, and fleeting voice notes. Important action items are routinely lost in the noise.
+2. **Forward Planning Trap:** Most student organizers plan "forward from today" rather than "backwards from event day." Crucial prerequisites—such as venue approvals, sponsorship agreements, AV checks, and safety clearances—are missed until it is too late to recover.
+3. **Volunteer Burnout & Asymmetric Workload:** Without workload visibility, 2–3 dedicated student leads bear 90% of the burden and burn out, while dozens of enthusiastic volunteers sit idle because tasks are not clearly delegated.
+4. **Late-Breaking Bottlenecks:** Organizers discover unresolved task dependencies, budget overruns, and overdue milestones 24–48 hours before the event, leading to panicked last-minute fire-fighting.
+5. **Passive AI Chatbots Don't Help:** Generic AI chatbots produce walls of text or generic advice, but they cannot take action in the club's database, reassign tasks, or manage live schedules.
 
 ---
 
-## 🔄 How It Works (At a Glance)
+## 💡 What Convene AI Is Made For
+
+**Convene AI** is an autonomous operational command center purpose-built for college clubs, annual fests, hackathons, and campus societies. 
+
+Unlike traditional project management boards (Trello, Notion) that require constant manual data entry, or generic chatbots that only generate text, Convene AI pairs event management workflows with an **action-taking AI Copilot** that reads and writes directly to the club's database.
+
+It transforms disorganized ideas, voice notes, and meeting minutes into structured timelines, assigned responsibilities, workload-balanced rosters, and proactive risk mitigations.
+
+---
+
+## 🛠️ How It Is Meant to Be Used (Workflow Lifecycle)
+
+Convene AI orchestrates the entire operational lifecycle of an event through a cohesive, 6-stage workflow:
 
 ```mermaid
 graph TD
-    A[Target Event Date & Goals] -->|Backward Planner| B(D-30 Milestone Timeline)
-    C[Messy Meeting Notes & Transcripts] -->|AI Extractor| D(Auto-Assigned Tasks)
-    B --> E[Kanban Task Board]
+    A[1. Define Event & Goal] -->|Backward Milestone Planner| B(2. Milestone Timeline D-30 to D-Day)
+    C[Meeting Notes & Transcripts] -->|AI Extractor Engine| D(3. Structured Tasks with Owners)
+    B --> E[4. Interactive Kanban Execution]
     D --> E
-    E -->|Continuous Monitoring| F[AI Risk Radar]
-    G[Event Docs & Guidelines] -->|pgvector Embeddings| H[Knowledge Base RAG]
-    I[Floating AI Copilot Agent] <-->|Real DB Actions| E
-    I <-->|Workload Checks| J[Volunteer Capacity Roster]
+    E -->|Continuous Audit| F[5. 24/7 AI Risk Scanner Radar]
+    E <-->|Real Database Actions| G[6. Autonomous Copilot Agent]
+    H[Club Docs, Guidelines, Budgets] -->|pgvector Embeddings| I[Knowledge Base RAG]
+    G <-->|Semantic Search| I
+    G <-->|Capacity Monitoring| J[Volunteer Workload Roster]
 ```
 
-1. **Plan Backwards from D-Day:** Set the event date (e.g., Annual Tech Fest). Gemini creates a milestone schedule working backwards from the deadline with automatic dependencies and role allocations.
-2. **Turn Notes into Action Items:** Paste rough meeting transcripts or voice memos. The AI extracts action items, estimates deadlines, and fuzzy-matches task owners to your volunteer roster.
-3. **Command via Autonomous Copilot:** Talk to the floating AI Copilot. It doesn't just give text advice—it creates tasks, reassigns owners, updates statuses, queries workloads, and searches documents.
-4. **24/7 Proactive Risk Radar:** The scanner continuously monitors for overdue tasks, bottlenecks, and overloaded members, suggesting immediate mitigation steps.
+1. **Set the Target Date & Plan Backwards:** Enter your event date and concept. The AI calculates milestones backwards from D-Day (D-30, D-14, D-7, D-1), establishing necessary prerequisite dependencies (e.g. venue approvals before stage design).
+2. **Turn Unstructured Chaos into Action:** After every committee meeting or voice sync, paste raw notes or transcripts into the Meeting Extractor. The AI identifies decisions, creates deliverables, sets deadlines, and auto-assigns owners by matching skills against the volunteer roster.
+3. **Execute on the Kanban Board:** Team members manage tasks through a 3-column drag-and-drop board with priority tags (`low` to `critical`) and dependency links (`depends_on`).
+4. **Monitor Capacity & Rebalance in 1 Click:** Leads track volunteer workload meters in real-time. If one volunteer becomes overloaded, tasks can be rebalanced immediately to available team members.
+5. **Proactive Risk Detection Radar:** The system audits the event continuously, flagging overdue tasks, stalled dependencies, and volunteer bottlenecks with concrete AI-generated mitigation strategies.
+6. **Command with the AI Copilot:** Organizers talk directly to the floating Copilot using natural language. The agent executes real database mutations—creating tasks, shifting deadlines, reassigning owners, and searching club guidelines via vector embeddings (RAG).
 
 ---
 
-## ⚡ 10-Second Quick Start (Instant Trial Mode)
+## ✨ Core Features & Capabilities
 
-Convene AI includes a **persistent in-memory mock database and simulated AI fallback**. You can run and explore the entire platform locally **with zero setup or API keys required**:
+### 1. 🤖 Autonomous Action Copilot (Real Database Execution)
+The AI Copilot does not just generate suggestions—it executes database mutations via 9 Google Gemini function-calling tools:
+* `create_task` — Inserts new tasks with titles, descriptions, priorities, and deadlines.
+* `assign_task` — Assigns or transfers tasks using fuzzy name matching across the volunteer roster.
+* `update_task_status` — Moves tasks between `todo`, `doing`, and `done`.
+* `set_deadline` — Modifies task target completion dates.
+* `list_tasks` — Queries and filters tasks by status, priority level, or owner.
+* `add_volunteer` — Registers new team members with designated roles and skill sets.
+* `create_announcement_draft` — Drafts context-aware broadcast messages.
+* `run_risk_scan` — Conducts an on-demand audit of operational vulnerabilities.
+* `search_documents` — Queries uploaded event documentation using semantic vector search.
 
-```bash
-# 1. Install dependencies
-npm install
+### 2. ⏳ Backward Milestone Event Planner
+* Computes deliverable deadlines in reverse chronological order from the target event date.
+* Automatically establishes dependency chains (e.g. *Task B cannot start until Task A is done*).
+* Allocates tasks to appropriate committee roles (Logistics, Marketing, Technical, Sponsorship, Hospitality).
 
-# 2. Start the local server
-npm run dev
-```
+### 3. 📝 Meeting & Voice Transcript Action Extractor
+* Ingests messy, conversational meeting minutes and voice transcriptions.
+* Extracts high-level summaries, key decisions, and prioritized action items.
+* Fuzzy-matches mentioned names to registered team members and assigns deadlines automatically.
 
-👉 Open **[http://localhost:3000](http://localhost:3000)** in your browser:
-* Explore the interactive **3D Robot landing page** with Dark/Light theme switching.
-* Click **"Enter Dashboard"** to test the live Kanban board, backward planner, volunteer capacity tracker, risk scanner, and document RAG knowledge base.
+### 4. 🛡️ 24/7 AI Risk Scanner & Bottleneck Radar
+* Continuously scans for overdue deliverables, unassigned high-priority tasks, and bottlenecked dependencies.
+* Identifies volunteers whose assigned task load exceeds healthy operating thresholds.
+* Gemini provides plain-English impact assessments and actionable step-by-step mitigation plans.
 
----
+### 5. 📚 Document Knowledge Base with pgvector Semantic Search (RAG)
+* Upload event guidelines, university rulebooks, safety protocols, budgets, and sponsor contracts.
+* Chunks and vectorizes documents using 768-dimensional embeddings (`gemini-embedding-001`).
+* Enables instant, citation-backed semantic Q&A for organizers and volunteers directly in the app.
 
-## ✨ Core Features Matrix
+### 6. 👥 Volunteer Roster & Workload Balancing
+* Real-time capacity indicators displaying the percentage workload for each volunteer.
+* Categorizes members by role and specialized skill sets.
+* Enables 1-click task reassignment to prevent student organizer burnout.
 
-| Feature | Powered By | The Problem It Solves | What the AI Does |
-|---|:---:|---|---|
-| **Autonomous Action Copilot** | `gemini-3.6-flash` | Organizers spend hours manually updating boards and assigning tasks. | Uses 9 function-calling tools to execute real database mutations directly from natural language chat. |
-| **Backward Milestone Planner** | `gemini-3.6-flash` | Teams start planning too late and miss prerequisite dependencies. | Computes deadlines backwards from event day (D-30 to D-Day), creating structured tasks with dependency graphs. |
-| **Meeting & Voice Extractor** | `gemini-3.6-flash` | Critical decisions made in meetings get lost in disorganized notes. | Extracts actionable deliverables, deadlines, and risks; matches owners against volunteer roster skills. |
-| **24/7 AI Risk Scanner** | `gemini-3.6-flash` | Bottlenecks and volunteer burnout are discovered only after deadlines pass. | Detects overdue tasks, dependency blockers, and overloaded members; outputs actionable mitigation steps. |
-| **Document Knowledge Base (RAG)** | `gemini-embedding-001` + `pgvector` | Important event rules, vendor contacts, and budget limits are scattered across PDFs. | Chunks documents into 768-dim embeddings; provides semantic similarity search with citations. |
-| **Context-Aware Announcements** | `gemini-3.5-flash-lite` | Drafting updates takes time and organizers forget key upcoming deadlines. | Pulls live upcoming tasks and deadlines from the database into ready-to-copy WhatsApp-formatted broadcasts. |
-| **Kanban Task Board** | Next.js + Tailwind | Traditional boards lack dependency tracking and skill context. | 3-column drag-and-drop workflow (`todo`, `doing`, `done`) with priorities (`low` to `critical`) and `depends_on` links. |
-| **Volunteer Capacity Tracker** | Next.js + Supabase | Uneven task distribution leads to overworked leads and idle volunteers. | Live capacity meters (% load), skill tags, and 1-click task rebalancing. |
-| **Interactive 3D Showcase** | Three.js + R3F | Standard club tools are dull and uninspiring for student organizers. | Interactive 3D robot model, Bento feature grids, Before/After comparisons, and full dark mode support. |
+### 7. 📋 Dependency-Aware Kanban Board
+* 3-column drag-and-drop workflow (`todo`, `doing`, `done`).
+* Explicit dependency indicators (`depends_on`) preventing premature task starts.
+* Color-coded priority badges (`low`, `medium`, `high`, `critical`) and deadline badges.
 
----
+### 8. 📢 Context-Aware Announcement Generator
+* Pulls live event deadlines, completed milestones, and volunteer requests directly from the database.
+* Automatically formats text with WhatsApp-compatible bolding, bullet points, and emojis.
+* Features 1-click copy-to-clipboard for rapid dispatch across committee broadcast channels.
 
-## 🤖 What Can the Copilot Agent Actually Do?
-
-The embedded AI Copilot (`app/api/agent/route.ts`) is equipped with **real function-calling tools** that read and write directly to your database:
-
-* `create_task(title, description, owner_name, deadline, priority)` — Adds a new task directly to the Kanban board.
-* `assign_task(task_title_or_id, volunteer_name)` — Reassigns an existing task using fuzzy name matching.
-* `update_task_status(task_title_or_id, status)` — Moves tasks between `todo`, `doing`, and `done`.
-* `set_deadline(task_title_or_id, deadline)` — Updates completion deadlines on the fly.
-* `list_tasks(status, priority, owner_name)` — Filters and queries active tasks.
-* `add_volunteer(name, email, role, skills)` — Registers a new member to the event team roster.
-* `create_announcement_draft(title, body)` — Drafts contextual announcements for WhatsApp/Slack.
-* `run_risk_scan()` — Triggers an on-demand operational audit of overdue tasks and bottlenecks.
-* `search_documents(query)` — Performs vector similarity searches across uploaded club documentation.
-
----
-
-## 🛠️ Technology Stack
-
-```
-Frontend:          Next.js 16.3.5 (App Router with Turbopack)
-UI & Styling:      React 19, Tailwind CSS v4, Lucide React, Framer Motion
-3D Visuals:        Three.js, React Three Fiber (@react-three/fiber), @react-three/drei
-Database:          Supabase (PostgreSQL with pgvector) + In-Memory Mock Fallback
-AI Models:         Google Gemini via @google/genai (Automatic 429 exponential backoff)
-                   ├── gemini-3.6-flash     (Agent tool-calling, planning, extraction, risks)
-                   ├── gemini-3.5-flash-lite (Formatting, drafting, lightweight generation)
-                   └── gemini-embedding-001 (768-dimensional vector embeddings for RAG)
-```
+### 9. 🎨 Modern Interactive 3D Showcase & Dark Mode
+* Interactive 3D hero scene powered by Three.js and React Three Fiber.
+* Seamless Dark / Light mode theme switching.
+* Tabbed module previews, Bento feature grids, and Before/After comparisons.
 
 ---
 
-## 🚀 Full Production Setup (Supabase & Gemini)
+## 💻 Technological Stack
 
-To connect your own cloud database and Gemini API keys:
-
-### 1. Configure `.env.local`
-```bash
-cp .env.example .env.local
-```
-Add your credentials:
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://<your-project-id>.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-anon-key>
-SUPABASE_SERVICE_ROLE_KEY=<your-service-role-key>
-GEMINI_API_KEY=<your-gemini-api-key>
-```
-
-### 2. Run Database Migrations
-In your Supabase project's **SQL Editor**, execute in order:
-1. `supabase/schema.sql` — Creates tables and enables the `vector` extension.
-2. `supabase/seed.sql` — Loads sample demo event, 8 volunteers, and 12 tasks.
-3. `supabase/rag.sql` — Installs the `match_document_chunks` vector search function.
-
-*(For detailed step-by-step instructions on Google OAuth and Vercel deployment, read the [Deployment Guide](CONVENE_AI_DEPLOYMENT_AND_AUTH_GUIDE.md))*.
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Core Framework** | **Next.js 16.3.5 (App Router)** | Modern full-stack React framework with Turbopack for rapid compilation and server-side API routes. |
+| **Language & Types** | **TypeScript 5** | Strict end-to-end type safety across client interfaces, database schemas, and AI function-calling parameters. |
+| **User Interface** | **React 19 & Tailwind CSS v4** | Modern reactive component architecture with high-performance utility-first styling. |
+| **Animations & Icons** | **Framer Motion & Lucide React** | Fluid UI transitions, micro-interactions, modal animations, and consistent iconography. |
+| **3D Graphics** | **Three.js & React Three Fiber** | Interactive 3D canvas and robot model rendering on the public showcase landing page. |
+| **Database & Vector Store** | **Supabase (PostgreSQL + pgvector)** | Relational database management with pgvector extension for storing and querying 768-dim document embeddings. |
+| **AI Reasoning & Tools** | **Google Gemini (`gemini-3.6-flash`)** | Core intelligence engine powering the autonomous copilot agent, backwards planning, meeting extraction, and risk scans. |
+| **Lightweight AI Generation** | **Google Gemini (`gemini-3.5-flash-lite`)** | High-speed, cost-efficient model for announcement drafting and text formatting. |
+| **Embeddings (RAG)** | **Google Gemini (`gemini-embedding-001`)** | Generates 768-dimensional vector representations of club documents for cosine similarity search. |
 
 ---
 
@@ -146,8 +142,8 @@ In your Supabase project's **SQL Editor**, execute in order:
 convene-ai/
 ├── app/
 │   ├── (app)/                       # Authenticated ClubOps Workspace
-│   │   ├── dashboard/               # Overview metrics & AI backward planner
-│   │   ├── tasks/                   # Kanban task board with dependency tracking
+│   │   ├── dashboard/               # Operational overview & AI backward planner
+│   │   ├── tasks/                   # 3-column Kanban board with dependency tracking
 │   │   ├── volunteers/              # Volunteer roster & workload capacity meters
 │   │   ├── meetings/                # Meeting notes & action item extractor
 │   │   ├── documents/               # Knowledge base & semantic vector search (RAG)
@@ -162,14 +158,20 @@ convene-ai/
 │   │   └── announcements/           # Live context announcement generator
 │   ├── signin/                      # Direct sign-in & instant trial access
 │   ├── account-creation/            # Club onboarding flow
+│   ├── globals.css                  # Design tokens & Tailwind utility configurations
+│   ├── layout.tsx                   # Root HTML layout with ThemeProvider
 │   └── page.tsx                     # 3D interactive landing page
 ├── components/landing/              # Hero, 3D Canvas, Bento grid, ThemeContext
 ├── lib/
-│   ├── ai.ts                        # Gemini SDK helper (with 429 backoff retry)
+│   ├── ai.ts                        # Gemini SDK helper with 429 exponential backoff retry
 │   ├── chunking.ts                  # Document text chunker for vector embeddings
-│   ├── mock-data.ts                 # Local demo mock dataset
-│   └── supabase/                    # Supabase browser, server, & mock clients
-├── supabase/                        # Database schema, seed data, & pgvector functions
+│   ├── mock-data.ts                 # Local demo dataset fallback
+│   ├── supabase/                    # Supabase browser, server, & mock clients
+│   └── utils.ts                     # Class merge utilities
+├── supabase/
+│   ├── schema.sql                   # Relational database schema with pgvector
+│   ├── seed.sql                     # Seed data for campus hackathon demo
+│   └── rag.sql                      # Vector search SQL function
 ├── CONVENE_AI_DEPLOYMENT_AND_AUTH_GUIDE.md # Production & OAuth setup guide
 └── ROADMAP_FEATURES_TO_BE_ADDED.md         # Stage 2 architecture specifications
 ```
@@ -178,9 +180,14 @@ convene-ai/
 
 ## 🗺️ Product Roadmap
 
-* **Stage 1 (Current Evaluation):** Core ClubOps operations — Backward Milestone Planner, Autonomous Action Copilot, Volunteer Workload Monitoring, Meeting Extractor, Risk Radar, and pgvector RAG.
-* **Stage 2 (Upcoming):** Live Stage Flow Controller (`/stage-flow`) with cascading agenda adjustments, Direct WhatsApp Voice Note ingestion pipeline, Web Push notification alerts, and direct WhatsApp Business API dispatch.
-  * *See the full architectural breakdown in [ROADMAP_FEATURES_TO_BE_ADDED.md](ROADMAP_FEATURES_TO_BE_ADDED.md)*.
+* **Stage 1 (Current Evaluation):**
+  * Core ClubOps operations — Backward Milestone Planner, Autonomous Action Copilot, Volunteer Workload Monitoring, Meeting Extractor, Risk Radar, and pgvector RAG.
+* **Stage 2 (Upcoming Production Features):**
+  * **Live Stage Flow Controller (`/stage-flow`)**: Real-time agenda run-of-show with dynamic schedule cascade algorithms (when one speaker overruns, downstream sessions automatically push back).
+  * **AI Teleprompter & Anchor Filler**: Generates contextual filler banter, speaker introductions, and transition scripts during live stage delays.
+  * **Direct WhatsApp Voice Note Pipeline**: Native audio ingestion (`.mp3`, `.ogg`, `.wav`) with Gemini multimodal speech transcription and immediate task extraction.
+  * **Web Push Notifications**: Browser-level alerts for critical task delays and volunteer rebalancing.
+  * *(See full architectural designs and specifications in [ROADMAP_FEATURES_TO_BE_ADDED.md](ROADMAP_FEATURES_TO_BE_ADDED.md))*.
 
 ---
 
