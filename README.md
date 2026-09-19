@@ -2,7 +2,30 @@
 
 > AI-powered event operations platform for college clubs — built for the **ClubOps AI** hackathon track.
 
-Manage tasks, volunteers, meetings, deadlines, documents, risks, and announcements with an AI copilot that takes real actions.
+Manage tasks, volunteers, meetings, deadlines, documents, risks, and announcements with an AI copilot that takes **real actions** — not just text generation.
+
+## ✨ Key Features
+
+| Feature | AI-Powered | Description |
+|---------|:----------:|-------------|
+| **Task Board** | | Kanban board with drag-drop, priorities, deadlines, and owner assignment |
+| **AI Planner** | ✅ | Generate full task plans backwards from event date with dependencies |
+| **Volunteer Mgmt** | | CRUD, workload monitoring, skill tracking |
+| **Meeting Extractor** | ✅ | Paste raw meeting notes → AI extracts action items, deadlines, owners |
+| **Risk Scanner** | ✅ | Scans overdue tasks, resource gaps; Gemini explains impact & mitigation |
+| **Documents & RAG** | ✅ | Upload event docs → chunk & embed → semantic search with citations |
+| **Announcements** | ✅ | AI-drafts context-aware announcements (pulls current deadlines/tasks) |
+| **AI Copilot Agent** | ✅ | Floating chat with 10+ function-calling tools to take real actions |
+
+### Agent Tools
+
+The AI copilot can autonomously:
+- Create, update, and assign tasks
+- Add volunteers and check workloads
+- Schedule and summarize meetings
+- Search the document knowledge base (RAG)
+- Run risk scans and explain findings
+- Query the dashboard for stats
 
 ## Tech Stack
 
@@ -10,6 +33,9 @@ Manage tasks, volunteers, meetings, deadlines, documents, risks, and announcemen
 - **Styling:** Tailwind CSS v4
 - **Database:** Supabase (Postgres + pgvector)
 - **AI:** Google Gemini API via `@google/genai`
+  - `gemini-3.6-flash` — Agent reasoning, meeting extraction, planning
+  - `gemini-3.5-flash-lite` — Simple generation tasks
+  - `gemini-embedding-001` — 768-dim embeddings for RAG
 
 ## Getting Started
 
@@ -44,10 +70,11 @@ Then edit `.env.local`:
 
 ### 3. Create the database tables
 
-Open your Supabase project's **SQL Editor** and run:
+Open your Supabase project's **SQL Editor** and run these files in order:
 
 1. `supabase/schema.sql` — creates all tables and enables pgvector
 2. `supabase/seed.sql` — inserts demo data (1 event, 8 volunteers, 12 tasks)
+3. `supabase/rag.sql` — creates the vector similarity search function for RAG
 
 ### 4. Run the dev server
 
@@ -62,21 +89,30 @@ Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to 
 ```
 app/
   (app)/              # Route group with sidebar layout
-    dashboard/        # Event overview
-    tasks/            # Task management
-    volunteers/       # Volunteer management
-    meetings/         # Meeting notes & summaries
-    documents/        # Document store & RAG search
-    announcements/    # Draft & publish announcements
+    dashboard/        # Event overview + AI Planner modal
+    tasks/            # Kanban task management
+    volunteers/       # Volunteer CRUD & workload
+    meetings/         # Meeting notes & AI extraction
+    documents/        # Document upload, RAG search
+    announcements/    # AI-drafted announcements
     risks/            # AI risk detection
-  components/         # Shared UI components
-  api/                # Server-side API routes (AI calls)
+  components/         # Shared UI (sidebar, agent chat, modals)
+  api/                # Server-side API routes
+    agent/            # Function-calling AI agent
+    plan/             # AI task plan generation
+    meetings/extract/ # Meeting notes → action items
+    risks/scan/       # Risk scanner with AI explanation
+    documents/        # Upload + RAG ask endpoints
+    announcements/    # Context-aware draft generation
 lib/
-  ai.ts               # Gemini helper with 429 retry
+  ai.ts               # Gemini helper with 429 retry + embeddings
+  chunking.ts         # Text chunking utility for RAG
+  activity.ts         # Activity logging
   supabase/           # Supabase client helpers
 supabase/
   schema.sql          # Database schema
   seed.sql            # Demo seed data
+  rag.sql             # Vector search function
 ```
 
 ## License
