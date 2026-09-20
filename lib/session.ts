@@ -6,6 +6,17 @@ const EXPIRY = "30d";
 function getSecret(): Uint8Array {
   const secret = process.env.SESSION_SECRET;
   if (!secret) {
+    if (process.env.NODE_ENV !== "production") {
+      // Dev-only fallback — sessions won't survive a server restart but the
+      // app won't crash. Set SESSION_SECRET in .env.local to persist sessions.
+      console.warn(
+        "[session] SESSION_SECRET is not set — using an insecure dev fallback. " +
+          "Add SESSION_SECRET to .env.local and restart the dev server."
+      );
+      return new TextEncoder().encode(
+        "dev-fallback-secret-not-for-production-use-32b"
+      );
+    }
     throw new Error("SESSION_SECRET environment variable is not set.");
   }
   return new TextEncoder().encode(secret);
