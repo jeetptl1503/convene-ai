@@ -3,7 +3,6 @@
 import React from "react";
 import { Sparkles } from "lucide-react";
 import { GithubIcon } from "./GithubIcon";
-import { SignInButton } from "./SignInButton";
 import { ThemeToggle } from "./ThemeContext";
 
 export function Navbar() {
@@ -55,7 +54,18 @@ export function Navbar() {
           </a>
 
           {/* Direct Sign in Button */}
-          <SignInButton text="Sign in" className="py-1.5 px-4 text-xs font-semibold" />
+          <a
+            href="/signup"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white shadow-xs hover:bg-emerald-500 hover:shadow-md hover:shadow-emerald-600/20 active:scale-95 transition-all dark:bg-emerald-500 dark:text-slate-950 dark:hover:bg-emerald-400"
+          >
+            Get started
+          </a>
+          <a
+            href="/login"
+            className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 transition-all"
+          >
+            Sign in
+          </a>
         </div>
       </nav>
     </header>

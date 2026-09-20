@@ -1,9 +1,47 @@
 "use client";
 
-import React from "react";
-import { Zap, CheckCircle2, Bot, Calendar, Clock, Database, Check } from "lucide-react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Zap, CheckCircle2, Bot, Calendar, Clock, Database, Check, ArrowRight, Loader2 } from "lucide-react";
 import { GithubIcon } from "./GithubIcon";
-import { SignInButton } from "./SignInButton";
+
+function DemoButton() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  async function handleDemo() {
+    setLoading(true);
+    try {
+      await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: "Demo Judge", email: "demo@convene.ai" }),
+      });
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: "demo@convene.ai" }),
+      });
+      if (res.ok) router.push("/dashboard");
+    } catch {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <button
+      onClick={handleDemo}
+      disabled={loading}
+      className="inline-flex h-12 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-6 text-sm font-medium text-slate-700 shadow-2xs transition-all hover:bg-slate-50 hover:text-slate-900 active:scale-95 disabled:opacity-70 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white"
+    >
+      {loading ? (
+        <><Loader2 className="h-4 w-4 animate-spin" /><span>Loading demo…</span></>
+      ) : (
+        <><Zap className="h-4 w-4 text-emerald-600 dark:text-emerald-400" /><span>Try demo</span></>
+      )}
+    </button>
+  );
+}
 
 export function Hero() {
   const coreOfferings = [
@@ -58,7 +96,15 @@ export function Hero() {
 
             {/* Action Buttons */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <SignInButton text="Sign in to Dashboard" showArrow variant="primary" className="h-12 px-7 text-sm font-semibold shadow-md shadow-emerald-600/20" />
+              <a
+                href="/signup"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-7 text-sm font-semibold text-white shadow-md shadow-emerald-600/20 transition-all hover:bg-emerald-500 active:scale-95 dark:bg-emerald-500 dark:text-slate-950 dark:hover:bg-emerald-400"
+              >
+                Get started
+                <ArrowRight className="h-4 w-4 shrink-0" />
+              </a>
+
+              <DemoButton />
 
               <a
                 href="https://github.com/jeetptl1503/convene-ai"

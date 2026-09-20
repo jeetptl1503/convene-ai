@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { LogOut } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: "📊" },
@@ -13,8 +15,32 @@ const NAV_ITEMS = [
   { href: "/risks", label: "Risks", icon: "⚠️" },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  userName: string;
+  userEmail: string;
+}
+
+export default function Sidebar({ userName, userEmail }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  async function handleLogout() {
+    setLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.push("/");
+    }
+  }
+
+  // Derive initials for avatar
+  const initials = userName
+    .split(" ")
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
   return (
     <aside className="fixed inset-y-0 left-0 z-30 flex w-64 flex-col bg-sidebar-bg border-r border-card-border">
@@ -32,7 +58,8 @@ export default function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
         {NAV_ITEMS.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+          const isActive =
+            pathname === item.href || pathname.startsWith(item.href + "/");
           return (
             <Link
               key={item.href}
@@ -50,16 +77,26 @@ export default function Sidebar() {
         })}
       </nav>
 
-      {/* Footer */}
+      {/* Footer — user info + logout */}
       <div className="border-t border-card-border p-4">
         <div className="flex items-center gap-3">
-          <div className="h-8 w-8 rounded-full bg-accent-light/20 flex items-center justify-center text-accent-light text-sm font-bold">
-            D
+          <div className="h-8 w-8 rounded-full bg-accent-light/20 flex items-center justify-center text-accent-light text-xs font-bold shrink-0">
+            {initials || "?"}
           </div>
-          <div>
-            <p className="text-sm font-medium text-white">Demo Club</p>
-            <p className="text-xs text-muted">demo@convene.ai</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-white truncate">{userName}</p>
+            {userEmail && (
+              <p className="text-xs text-muted truncate">{userEmail}</p>
+            )}
           </div>
+          <button
+            onClick={handleLogout}
+            disabled={loggingOut}
+            title="Logout"
+            className="ml-auto shrink-0 rounded-lg p-1.5 text-muted hover:bg-sidebar-hover hover:text-white transition-colors disabled:opacity-50 cursor-pointer"
+          >
+            <LogOut className="h-4 w-4" />
+          </button>
         </div>
       </div>
     </aside>
